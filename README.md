@@ -15,7 +15,7 @@ This is currently a WIP repo for a jailbreak application for tracking the progre
 ##Getting Started
 
 ```bash
-git clone (repository)
+git clone git@github.com:moschopsuk/jailbreak-app.git
 cd jailbreak-app
 npm install
 ```
