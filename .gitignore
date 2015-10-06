@@ -1,0 +1,9 @@
+# NodeJS Dependency directory
+node_modules
+
+# Bower
+assets/vendor/
+
+#Generated Assets
+public/css/
+public/fonts/
