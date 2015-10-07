@@ -25,3 +25,9 @@ npm install
 After installing all of the dependencies the following command will run the core tasks to build the public assets.
 
 `gulp`
+
+##Running
+
+A development server can be started by running the command. Todo find some way of reloading the browser when file chnages are also made.
+
+`npm start`
