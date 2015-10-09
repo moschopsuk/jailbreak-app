@@ -12,7 +12,7 @@ var UserSchema = new Schema({
  *  Hook into the save function and apply our
  *  own logic to the object save to encypt the password
  */
-UserSchema.pre('save', {
+UserSchema.pre('save', function(next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)

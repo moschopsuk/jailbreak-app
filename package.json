@@ -4,7 +4,6 @@
   "description": "Application to show progress of students on the jailbreak challange",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "bower_install": "./node_modules/bower/bin/bower install",
     "postinstall": "npm run bower_install"
@@ -26,7 +25,8 @@
   "devDependencies": {
     "bower": "^1.5.3",
     "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.3",
     "gulp-sass": "^2.0.4",
-    "nodemon": "^1.7.1"
+    "mocha": "^2.3.3"
   }
 }

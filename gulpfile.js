@@ -1,5 +1,7 @@
-var gulp = require('gulp'), 
-    sass = require('gulp-sass') ;
+var gulp    =  require('gulp'), 
+    sass    = require('gulp-sass') ,
+    mocha   = require('gulp-mocha');
+
 
 var config = {
     vendorDir: './assets/vendor',
@@ -17,6 +19,11 @@ gulp.task('css', function() {
 gulp.task('fonts', function() {
     return gulp.src(config.vendorDir + '/bootstrap-sass/assets/fonts/bootstrap/*')
     .pipe(gulp.dest(config.publicDir + '/fonts'));
+});
+
+gulp.task('test', function () {
+    return gulp.src('spec/*Spec.js', {read: false})
+        .pipe(mocha({reporter: 'spec'}));
 });
 
 gulp.task('default', ['css', 'fonts']);
