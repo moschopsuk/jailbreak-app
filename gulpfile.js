@@ -17,7 +17,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('fonts', function() {
-    return gulp.src(config.vendorDir + '/bootstrap-sass/assets/fonts/bootstrap/*')
+    return gulp.src(config.vendorDir + '/bootstrap-sass/assets/fonts/*/**')
     .pipe(gulp.dest(config.publicDir + '/fonts'));
 });
 

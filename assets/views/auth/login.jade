@@ -7,15 +7,26 @@ html(lang='en')
     title Please Login
     link(href='/css/app.css', rel='stylesheet')
   body
-    .container
-      form.form-signin(role='form', method="post", action="/auth/login")
-        h2.form-signin-heading Please sign in
-        
-        - if ('undefined' !== typeof errors && errors.length)
-            ul#errors
-            - each error in errors
-                li.error= error
-        
-        input.form-control(type='text', name='username', placeholder='username', required='', autofocus='')
-        input.form-control(type='password', name='password', placeholder='Password', required='')
-        button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+  .container
+  .card.card-container
+    img#profile-img.profile-img-card(src='/images/avatar.png')
+    p#profile-name.profile-name-card
+    
+    - if (messages.length)
+        - each message in messages
+            .alert.alert-danger(role='alert')
+                span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+                span.sr-only Error:
+                | !{message}
+            
+    form.form-signin(role='form', method="post", action="/auth/login")
+      span#reauth-email.reauth-email
+      input#login-username.form-control(type='email', placeholder='Email', name='email', autofocus='')
+      input#login-password.form-control(type='password', placeholder='Password', name='password')
+      #remember.checkbox
+        label
+          input(type='checkbox', value='remember')
+          |  Remember Me
+      button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Login
+    a.forgot-password(href='/auth/register')
+      | Not registered, click here

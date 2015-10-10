@@ -1,29 +1,30 @@
-var express     = require('express'),
-    router      = express.Router(),
-    passport    = require('passport'),
-    User        = require('./../models/user');
+module.exports = function(app, passport) {
+    app.get('/auth/login', function(req, res) {
+        res.render('auth/login', { messages: req.flash('loginMessage') });
+    });
 
-router.get('/login', function(req, res) {
-    res.render('auth/login', { });
-});
+    // process the login form
+    app.post('/auth/login', passport.authenticate('local-login', {
+        successRedirect : '/admin',
+        failureRedirect : '/auth/login',
+        failureFlash : true
+    }));
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect : '/admin',
-    failureRedirect : '/auth/login'
-}));
+    // SIGNUP =================================
+    // show the signup form
+    app.get('/auth/register', function(req, res) {
+        res.render('auth/register', { messages: req.flash('signupMessage') });
+    });
 
-router.get('/register', function(req, res) {
-    res.render('auth/register', { });
-});
+    // process the signup form
+    app.post('/auth/register', passport.authenticate('local-signup', {
+        successRedirect : '/admin',
+        failureRedirect : '/auth/register',
+        failureFlash : true
+    }));
 
-router.post('/register', passport.authenticate('local', {
-    successRedirect : '/admin',
-    failureRedirect : '/auth/register'
-}));
-
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/auth/login');
-});
-
-module.exports = router;
+    app.get('/auth/logout', function(req, res) {
+        req.logout();
+        res.redirect('/auth/login');
+    });
+};
