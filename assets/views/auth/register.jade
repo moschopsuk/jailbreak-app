@@ -21,9 +21,10 @@ html(lang='en')
             
     form.form-signin(role='form', method="post", action="/auth/register")
       span#reauth-email.reauth-email
-      input#login-username.form-control(type='email', placeholder='Username', name='email', required='', autofocus='')
+      input#login-username.form-control(type='email', placeholder='Email', name='email', required='', autofocus='')
+      input#login-fullname.form-control(type='text', placeholder='Full Name', name='fullName', required='', autofocus='')
       input#login-password.form-control(type='password', placeholder='Password', name='password', required='')
-      input#login-password.form-control(type='password', placeholder='Confirm Password', name='confirm', required='')
+      input#login-confirm.form-control(type='password', placeholder='Confirm Password', name='confirm', required='')
 
       button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Register
     a.forgot-password(href='/auth/login')
