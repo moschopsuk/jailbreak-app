@@ -21,6 +21,7 @@ require('./lib/passport')(passport);
 
 app.set('views', __dirname + '/assets/views');
 app.set('view engine', 'jade');
+app.set('env', process.env.ENV);
 
 //Log requests
 app.use(logger('dev'));
@@ -43,7 +44,7 @@ app.use("/", express.static(__dirname + "/public/"));
 
 //Various routes
 var auth    = require('./routes/auth')(app, passport),
-    admin   = require('./routes/admin');
+    admin   = require('./routes/admin'),
     index   = require('./routes/index');
 
 function isLoggedIn(req, res, next) {
@@ -58,6 +59,10 @@ app.use('/admin', isLoggedIn, admin);
 
 //Gernic pages
 app.use('/', index);
+
+if (app.get('env') === 'dev') {
+    app.locals.pretty = true;
+}
 
 var server = app.listen(3000, function () {
     var host = server.address().address;
