@@ -1,5 +1,6 @@
 var gulp    =  require('gulp'), 
     sass    = require('gulp-sass') ,
+    concat  = require('gulp-concat'),
     mocha   = require('gulp-mocha');
 
 
@@ -10,10 +11,19 @@ var config = {
 
 gulp.task('css', function() {
     return gulp.src('./assets/sass/app.scss')
-    .pipe(sass({
-        includePaths: [config.vendorDir + '/bootstrap-sass/assets/stylesheets'],
-    }))
-    .pipe(gulp.dest(config.publicDir + '/css'));
+        .pipe(sass({
+            includePaths: [config.vendorDir + '/bootstrap-sass/assets/stylesheets'],
+        }))
+        .pipe(gulp.dest(config.publicDir + '/css'));
+});
+
+gulp.task('scripts', function() {
+    return gulp.src([
+            config.vendorDir +'/jquery/dist/jquery.js',
+            './assets/js/*.js'
+        ])
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest(config.publicDir + '/js'));
 });
 
 gulp.task('fonts', function() {
@@ -26,4 +36,4 @@ gulp.task('test', function () {
         .pipe(mocha({reporter: 'spec'}));
 });
 
-gulp.task('default', ['css', 'fonts']);
+gulp.task('default', ['css', 'scripts', 'fonts']);

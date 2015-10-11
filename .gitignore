@@ -7,6 +7,7 @@ assets/vendor/
 #Generated Assets
 public/css/
 public/fonts/
+public/js/
 
 #env
 .env

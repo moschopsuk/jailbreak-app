@@ -44,6 +44,7 @@ app.use("/", express.static(__dirname + "/public/"));
 //Various routes
 var auth    = require('./routes/auth')(app, passport),
     admin   = require('./routes/admin');
+    index   = require('./routes/index');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
@@ -54,6 +55,9 @@ function isLoggedIn(req, res, next) {
 
 //Login systems
 app.use('/admin', isLoggedIn, admin);
+
+//Gernic pages
+app.use('/', index);
 
 var server = app.listen(3000, function () {
     var host = server.address().address;

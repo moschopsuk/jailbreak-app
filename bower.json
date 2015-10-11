@@ -1,23 +1,24 @@
 {
-    "name": "jailbreak-app",
-    "version": "0.0.1",
-    "description": "",
-    "main": "",
-    "moduleType": [],
-    "authors": [
-        "Luke Moscrop"
-    ],
-    "license": "MIT",
-    "homepage": "",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "bootstrap-sass": "~3.3.5"
-    }
+  "name": "jailbreak-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "Luke Moscrop"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
 }
