@@ -20,6 +20,7 @@ gulp.task('css', function() {
 gulp.task('scripts', function() {
     return gulp.src([
             config.vendorDir +'/jquery/dist/jquery.js',
+            config.vendorDir +'/bootstrap-sass/assets/javascripts/bootstrap.js',
             './assets/js/*.js'
         ])
         .pipe(concat('app.js'))

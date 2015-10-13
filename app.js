@@ -45,6 +45,7 @@ app.use("/", express.static(__dirname + "/public/"));
 //Various routes
 var auth    = require('./routes/auth')(app, passport),
     admin   = require('./routes/admin'),
+    team    = require('./routes/team'),
     index   = require('./routes/index');
 
 function isLoggedIn(req, res, next) {
@@ -54,8 +55,9 @@ function isLoggedIn(req, res, next) {
     res.redirect('/auth/login');
 }
 
-//Login systems
+//Admin systems
 app.use('/admin', isLoggedIn, admin);
+app.use('/admin/teams', isLoggedIn, team);
 
 //Gernic pages
 app.use('/', index);

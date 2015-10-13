@@ -11,3 +11,5 @@ public/js/
 
 #env
 .env
+
+dump.rdb
