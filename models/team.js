@@ -7,4 +7,16 @@ var TeamSchema = new Schema({
     locations   : [{ type: Schema.Types.ObjectId, ref: 'Location' }]
 });
 
+TeamSchema.statics = {
+
+    list: function (options, cb) {
+      var criteria = options.criteria || {}
+
+      this.find(criteria)
+        .limit(options.perPage)
+        .skip(options.perPage * options.page)
+        .exec(cb);
+    }
+}
+
 module.exports = mongoose.model('Team', TeamSchema);

@@ -1,0 +1,19 @@
+mixin pagination(numPages, curr, base)
+    nav
+        ul.pagination
+            - if(curr==1) 
+                li.disabled
+                    a(href='#') Prev
+            - else
+                li
+                    a(href='#') Prev
+            - for(var i=1;i<start+numPages;i++) {
+                - if(i==curr)
+                    li.active
+                        a(href='#{base}#{i}') #{i}
+                - else
+                    li
+                        a(href='#{base}#{i}') #{i}
+            - }
+            li
+                a(href='#') Next
