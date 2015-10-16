@@ -25,6 +25,7 @@ module.exports = function(app, passport) {
 
     app.get('/auth/logout', function(req, res) {
         req.logout();
+        req.flash('success', 'Logged out successfully.')
         res.redirect('/auth/login');
     });
 };

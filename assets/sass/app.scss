@@ -6,6 +6,12 @@ body {
     padding-top: 70px;
 }
 
+.alert {
+    .glyphicon {
+        padding-right: 5px;
+    }
+}
+
 #map {
     margin-top: -20px;
     width: 100%;

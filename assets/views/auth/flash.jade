@@ -1,20 +1,31 @@
 if messages.errors
-  .alert.alert-danger.fade.in
-    button.close(type='button', data-dismiss='alert')
-      i.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
     for error in messages.errors
-      div= error
-
+      .alert.alert-danger.alert-dismissible(role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') ×
+        span.glyphicon.glyphicon-info-sign
+        |  #{error}
+        
+if messages.warnings
+    for warning in messages.warnings
+      .alert.alert-warning.alert-dismissible(role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') ×
+        span.glyphicon.glyphicon-alert
+        |  #{warning}
+        
 if messages.info
-  .alert.alert-info.fade.in
-    button.close(type='button', data-dismiss='alert')
-      i.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
     for info in messages.info
-      div= info
+      .alert.alert-info.alert-dismissible(role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') ×
+        span.glyphicon.glyphicon-exclamation-sign
+        |  #{info}
 
 if messages.success
-  .alert.alert-success.fade.in
-    button.close(type='button', data-dismiss='alert')
-      i.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
     for success in messages.success
-      div= success
+      .alert.alert-success.alert-dismissible(role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') ×
+        span.glyphicon.glyphicon-ok
+        |  #{success}
