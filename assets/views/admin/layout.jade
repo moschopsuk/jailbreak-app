@@ -22,6 +22,9 @@ html(lang='en')
               a(href='/admin') Home
             li
               a(href='/admin/teams') Teams
+            if user.isAdmin
+              li
+                a(href='/admin/users') Users
           
           .nav.navbar-nav.navbar-right
             p.navbar-btn

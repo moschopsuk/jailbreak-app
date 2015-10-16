@@ -39,6 +39,12 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Pass user value in global scope
+app.use(function(req, res, next){
+    res.locals.user = req.user;
+    next();
+});
+
 // Set /public as our static content dir
 app.use("/", express.static(__dirname + "/public/"));
 
@@ -46,6 +52,7 @@ app.use("/", express.static(__dirname + "/public/"));
 var auth    = require('./routes/auth')(app, passport),
     admin   = require('./routes/admin'),
     team    = require('./routes/team'),
+    user    = require('./routes/user'),
     index   = require('./routes/index');
 
 function isLoggedIn(req, res, next) {
@@ -58,6 +65,7 @@ function isLoggedIn(req, res, next) {
 //Admin systems
 app.use('/admin', isLoggedIn, admin);
 app.use('/admin/teams', isLoggedIn, team);
+app.use('/admin/users', isLoggedIn, user);
 
 //Gernic pages
 app.use('/', index);

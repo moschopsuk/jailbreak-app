@@ -1,0 +1,41 @@
+include ../mixins/pagination.jade
+extends ../layout.jade
+
+block content
+  h1 Users
+
+  .row
+    .col-md-8
+      .panel.panel-default
+        table.table.table-bordered.table-striped
+          thead
+            th.col-md-1 Admin
+            th.col-md-3 Name
+            th.col-md-3 Email
+            th.col-md-3 Last Login
+            th.col-md-3.text-center Action
+          tbody
+          if (users.length)
+            each user in users
+              tr
+                td.text-center
+                  input(type='checkbox', disabled='true', checked=user.isAdmin?"checked":undefined)
+                td #{user.fullName}
+                td #{user.email}
+                td
+                  span(data-livestamp='#{user.lastLogin}')
+                td.text-center
+                  a.btn.btn-info.btn-xs(href='/admin/users/edit/#{user._id}')
+                    span.glyphicon.glyphicon-edit
+                    |  Edit
+                  |  
+                  a.btn.btn-danger.btn-xs(href='/admin/users/del/#{user._id}')
+                    span.glyphicon.glyphicon-remove
+                    |  Del
+                    
+      .text-center
+        +pagination(pages, page, '/admin/users/')
+    
+    .col-md-4
+      .well
+        a.btn.btn-info(href='/admin/users/new') New User

@@ -1,6 +1,6 @@
 var express     = require('express'),
     router      = express.Router(),
-    Team        = require('../models/team');
+    User        = require('../models/user');
 
 router.get('/', function(req, res) {
     var page = (req.params.page > 0 ? req.params.page : 1) - 1;
@@ -10,25 +10,17 @@ router.get('/', function(req, res) {
         page: page
     };
 
-    Team.list(options, function (err, teams) {
+    User.list(options, function (err, users) {
         if (err) return res.render('500');
 
-        Team.count().exec(function (err, count) {
-            res.render('admin/teams/list', {
-                teams: teams,
+        User.count().exec(function (err, count) {
+            res.render('admin/users/list', {
+                users: users,
                 page: page + 1,
                 pages: Math.ceil(count / perPage)
             });
         });
     });
-});
-
-router.get('/new', function(req, res) {
-    res.render('admin/teams/new');
-});
-
-router.post('/new', function(req, res) {
-    res.redirect('/admin/teams');
 });
 
 module.exports = router;

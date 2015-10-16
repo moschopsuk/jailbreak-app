@@ -12,7 +12,6 @@ var TeamSchema = new Schema({
 TeamSchema.path('name').required(true, 'Team name cannot be blank');
 
 TeamSchema.statics = {
-
     list: function (options, cb) {
       var criteria = options.criteria || {}
 

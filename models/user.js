@@ -3,9 +3,11 @@ var mongoose                = require('mongoose'),
     Schema                  = mongoose.Schema;
 
 var UserSchema = new Schema({
-    email:      { type: String, },
-    fullName:   { type: String, },
-    password:   { type: String, }
+    email:          { type: String,  },
+    fullName:       { type: String,  },
+    password:       { type: String,  },
+    isAdmin:        { type: Boolean,    default: false    },
+    lastLogin:      { type: Date,       default: Date.now }
 });
 
 // generating a hash
@@ -17,5 +19,16 @@ UserSchema.methods.generateHash = function(password) {
 UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
+
+UserSchema.statics = {
+    list: function (options, cb) {
+      var criteria = options.criteria || {}
+
+      this.find(criteria)
+        .limit(options.perPage)
+        .skip(options.perPage * options.page)
+        .exec(cb);
+    }
+}
 
 module.exports = mongoose.model('User', UserSchema);

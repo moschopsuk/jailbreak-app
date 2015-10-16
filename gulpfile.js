@@ -21,7 +21,9 @@ gulp.task('scripts', function() {
     return gulp.src([
             config.vendorDir +'/jquery/dist/jquery.js',
             config.vendorDir +'/bootstrap-sass/assets/javascripts/bootstrap.js',
-            './assets/js/*.js'
+            './assets/js/moment.js',
+            './assets/js/livestamp.js',
+            './assets/js/tracking-map.js',
         ])
         .pipe(concat('app.js'))
         .pipe(gulp.dest(config.publicDir + '/js'));
