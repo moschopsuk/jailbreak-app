@@ -7,6 +7,8 @@ var TeamSchema = new Schema({
     locations   : [{ type: Schema.Types.ObjectId, ref: 'Location' }]
 });
 
+TeamSchema.path('name').required(true, 'Team name cannot be blank');
+
 TeamSchema.statics = {
 
     list: function (options, cb) {
