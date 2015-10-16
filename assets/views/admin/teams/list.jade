@@ -2,37 +2,36 @@ include ../mixins/pagination.jade
 extends ../layout.jade
 
 block content
-  .container
-    h1 Teams
+  h1 Teams
+
+  .row
+    .col-md-8
+      .panel.panel-default
+        table.table.table-bordered.table-striped
+          thead
+            th.col-md-1 #ID
+            th.col-md-4 Name
+            th.col-md-4 Last Update
+            th.col-md-3.text-center Action
+          tbody
+          if (teams.length)
+            each team in teams
+              tr
+                td #{team._id}
+                td #{team.name}
+                td test
+                td.text-center
+                  a.btn.btn-info.btn-xs(href='/admin/teams/edit/#{team._id}')
+                    span.glyphicon.glyphicon-edit
+                    |  Edit
+                  |  
+                  a.btn.btn-danger.btn-xs(href='/admin/teams/del/#{team._id}')
+                    span.glyphicon.glyphicon-remove
+                    |  Del
+                    
+      .text-center
+        +pagination(pages, page, '/admin/teams/')
     
-    .row
-      .col-md-8
-        .panel.panel-default
-          table.table.table-bordered.table-striped
-            thead
-              th.col-md-1 #ID
-              th.col-md-4 Name
-              th.col-md-4 Last Update
-              th.col-md-3.text-center Action
-            tbody
-            if (teams.length)
-              each team in teams
-                tr
-                  td #{team._id}
-                  td #{team.name}
-                  td test
-                  td.text-center
-                    a.btn.btn-info.btn-xs(href='/admin/teams/edit/#{team._id}')
-                      span.glyphicon.glyphicon-edit
-                      |  Edit
-                    |  
-                    a.btn.btn-danger.btn-xs(href='/admin/teams/del/#{team._id}')
-                      span.glyphicon.glyphicon-remove
-                      |  Del
-        
-        .text-center
-          +pagination(pages, page, '/admin/teams/')
-        
-      .col-md-4
-        .well
-          a.btn.btn-info(hef='/admin/teams/new') New Team
+    .col-md-4
+      .well
+        a.btn.btn-info(href='/admin/teams/new') New Team

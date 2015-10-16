@@ -24,11 +24,13 @@ router.get('/', function(req, res) {
 });
 
 router.get('/new', function(req, res) {
+    console.log(res.locals);
     res.render('admin/teams/new');
 });
 
 router.post('/new', function(req, res) {
-    res.render('index');
+    req.flash('success', 'New Team Created!')
+    res.redirect('/admin/teams');
 });
 
 module.exports = router;

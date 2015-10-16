@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
 var TeamSchema = new Schema({
      _id        : { type: Number, index: true },
     name        : String,
+    members     : String,
+    notes       : String,
     locations   : [{ type: Schema.Types.ObjectId, ref: 'Location' }]
 });
 

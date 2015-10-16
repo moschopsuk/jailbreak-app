@@ -7,25 +7,20 @@ html(lang='en')
     title Please Login
     link(href='/css/app.css', rel='stylesheet')
   body
-  .container
-  .card.card-container
-    img#profile-img.profile-img-card(src='/images/avatar.png')
-    p#profile-name.profile-name-card
+    .container
+      .card.card-container
+        img#profile-img.profile-img-card(src='/images/avatar.png')
+        p#profile-name.profile-name-card
     
-    - if (messages.length)
-        - each message in messages
-            .alert.alert-danger(role='alert')
-                span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
-                span.sr-only Error:
-                | !{message}
+        include flash
             
-    form.form-signin(role='form', method="post", action="/auth/register")
-      span#reauth-email.reauth-email
-      input#login-username.form-control(type='email', placeholder='Email', name='email', required='', autofocus='')
-      input#login-fullname.form-control(type='text', placeholder='Full Name', name='fullName', required='', autofocus='')
-      input#login-password.form-control(type='password', placeholder='Password', name='password', required='')
-      input#login-confirm.form-control(type='password', placeholder='Confirm Password', name='confirm', required='')
+        form.form-signin(role='form', method='post', action='/auth/register')
+          span#reauth-email.reauth-email
+          input#login-username.form-control(type='email', placeholder='Email', name='email', required='', autofocus='')
+          input#login-fullname.form-control(type='text', placeholder='Full Name', name='fullName', required='', autofocus='')
+          input#login-password.form-control(type='password', placeholder='Password', name='password', required='')
+          input#login-confirm.form-control(type='password', placeholder='Confirm Password', name='confirm', required='')
 
-      button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Register
-    a.forgot-password(href='/auth/login')
-      | Already have an account, click here
+          button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Register
+        a.forgot-password(href='/auth/login')
+          | Already have an account, click here

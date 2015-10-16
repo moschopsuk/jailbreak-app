@@ -1,6 +1,6 @@
 module.exports = function(app, passport) {
     app.get('/auth/login', function(req, res) {
-        res.render('auth/login', { messages: req.flash('loginMessage') });
+        res.render('auth/login');
     });
 
     // process the login form
@@ -13,7 +13,7 @@ module.exports = function(app, passport) {
     // SIGNUP =================================
     // show the signup form
     app.get('/auth/register', function(req, res) {
-        res.render('auth/register', { messages: req.flash('signupMessage') });
+        res.render('auth/register');
     });
 
     // process the signup form

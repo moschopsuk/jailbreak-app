@@ -6,7 +6,7 @@ var express         = require('express'),
     passport        = require('passport'),
     mongoose        = require('mongoose'),
     session         = require('express-session'),
-    flash           = require('connect-flash'),
+    flash           = require('express-flash'),
     env             = require('node-env-file'),
     app             = express();
 
@@ -35,9 +35,9 @@ app.use(cookieParser());
 
 //Auth plugins
 app.use(session({ secret: 'jailbreakapp', resave: true, saveUninitialized: true }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
 // Set /public as our static content dir
 app.use("/", express.static(__dirname + "/public/"));

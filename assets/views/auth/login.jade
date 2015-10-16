@@ -7,26 +7,21 @@ html(lang='en')
     title Please Login
     link(href='/css/app.css', rel='stylesheet')
   body
-  .container
-  .card.card-container
-    img#profile-img.profile-img-card(src='/images/avatar.png')
-    p#profile-name.profile-name-card
+    .container
+      .card.card-container
+       img#profile-img.profile-img-card(src='/images/avatar.png')
+       p#profile-name.profile-name-card
     
-    - if (messages.length)
-        - each message in messages
-            .alert.alert-danger(role='alert')
-                span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
-                span.sr-only Error:
-                | !{message}
+       include flash
             
-    form.form-signin(role='form', method="post", action="/auth/login")
-      span#reauth-email.reauth-email
-      input#login-username.form-control(type='email', placeholder='Email', name='email', autofocus='')
-      input#login-password.form-control(type='password', placeholder='Password', name='password')
-      #remember.checkbox
-        label
-          input(type='checkbox', value='remember')
-          |  Remember Me
-      button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Login
-    a.forgot-password(href='/auth/register')
-      | Not registered, click here
+       form.form-signin(role='form', method="post", action="/auth/login")
+         span#reauth-email.reauth-email
+         input#login-username.form-control(type='email', placeholder='Email', name='email', autofocus='')
+         input#login-password.form-control(type='password', placeholder='Password', name='password')
+         #remember.checkbox
+           label
+             input(type='checkbox', value='remember')
+             |  Remember Me
+          button.btn.btn-lg.btn-success.btn-block.btn-signin(type='submit') Login
+        a.forgot-password(href='/auth/register')
+          | Not registered, click here

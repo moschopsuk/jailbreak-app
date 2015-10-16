@@ -1,0 +1,20 @@
+extends ../layout.jade
+
+block content
+    h1 Add new Team
+    
+    .row
+      .col-md-8
+        .panel.pan.well
+          form(role='form', method='post', action='/admin/teams/new')
+            .form-group
+              label(for='name') Name:
+              input#name.form-control(type='name', value='#{name}')
+            .form-group
+              label(for= 'members') Members:
+              input#members.form-control(type='members', value='#{members}')
+            .form-group
+              label(for= 'notes') Notes:
+              textarea#notes.form-control(type='notes', rows='5') #{notes}
+            
+            button.btn.btn-info(type='submit') Submit

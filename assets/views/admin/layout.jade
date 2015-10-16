@@ -27,7 +27,8 @@ html(lang='en')
             p.navbar-btn
               a.btn.btn-success(href='/auth/logout') Logout
               
-    
-    block content
+    .container
+      include flash
+      block content
     
     script(src='/js/app.js')
