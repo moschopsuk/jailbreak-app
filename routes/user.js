@@ -23,4 +23,52 @@ router.get('/', function(req, res) {
     });
 });
 
+
+router.get('/edit/:id', function(req, res) {
+    var id = req.params.id;
+
+    User.findById(id, function (err, user){
+        if(err) {
+            req.flash('errors', 'Unable to find user');
+            return res.redirect('/admin/users');
+        }
+
+        res.render('admin/users/edit', user);
+    });
+});
+
+router.post('/edit/:id', function(req, res) {
+    var id = req.params.id;
+
+    User.findOneAndUpdate({_id:id}, req.body, function (err, user) {
+        if(err) {
+            req.flash('errors', 'Unable to update details');
+            return res.redirect('/admin/users/edit/' + id);
+        }
+
+        req.flash('success', 'Account Updated.');
+        res.redirect('/admin/users');
+    });
+});
+
+router.post('/del/:id', function(req, res) {
+    var id = req.params.id;
+
+    if(id === req.user.id) {
+        req.flash('warnings', 'You can\'t delete yourself!');
+        return res.redirect('/admin/users');
+    }
+
+    User.remove({ _id: id }, function(err) {
+        if (err) {
+            req.flash('errors', 'Unable to delete user');
+            return res.redirect('/admin/users');
+        }
+
+        req.flash('success', 'User Deleted');
+        res.redirect('/admin/users');
+    });
+});
+
+
 module.exports = router;

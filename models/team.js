@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var TeamSchema = new Schema({
-     _id        : { type: Number, index: true },
     name        : String,
     members     : String,
     notes       : String,

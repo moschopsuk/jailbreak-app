@@ -1,0 +1,16 @@
+.row
+  .col-md-8
+    .panel.pan.well
+      form(role='form', method='post', action='/admin/users/edit/#{_id}')
+        .form-group
+          label(for='name') Name:
+          input#name.form-control(type='name', name='fullName', value='#{fullName}')
+        .form-group
+          label(for= 'email') Email:
+          input#email.form-control(type='email', name='email', value='#{email}')
+        .form-group
+          label(for= 'isAdmin') Admin Access:
+          input(type="hidden", name="isAdmin", value=0)
+          input#isAdmin.form-control(type='checkbox', name='isAdmin', checked=isAdmin?"checked":undefined)
+            
+        button.btn.btn-info(type='submit') Submit

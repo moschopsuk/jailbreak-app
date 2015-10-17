@@ -1,9 +1,9 @@
 extends ../layout.jade
 
 block content
-    h1 Add new Team
+    h1 Edit Team
     .row
       .col-md-8
         .panel.pan.well
-          form(role='form', method='post', action='/admin/teams/new')
+          form(role='form', method='post', action='/admin/teams/edit/#{_id}')
             include form

@@ -1,0 +1,11 @@
+.form-group
+  label(for='name') Name:
+  input#name.form-control(type='name', name='name', value=name)
+.form-group
+  label(for= 'members') Members:
+  input#members.form-control(type='members', name='members', value=members)
+.form-group
+  label(for= 'notes') Notes:
+  textarea#notes.form-control(type='notes', rows='5', name='notes') #{notes}
+
+button.btn.btn-info(type='submit') Submit

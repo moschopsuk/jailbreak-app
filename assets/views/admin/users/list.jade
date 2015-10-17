@@ -29,7 +29,7 @@ block content
                     span.glyphicon.glyphicon-edit
                     |  Edit
                   |  
-                  a.btn.btn-danger.btn-xs(href='/admin/users/del/#{user._id}')
+                  a.btn.btn-danger.btn-xs.delete-confirm(href='#', data-id='#{user._id}')
                     span.glyphicon.glyphicon-remove
                     |  Del
                     
@@ -39,3 +39,25 @@ block content
     .col-md-4
       .well
         a.btn.btn-info(href='/admin/users/new') New User
+
+    #delete-modal.modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-header
+            a.close(data-dismiss='modal') ×
+            h3 Delete Team
+          .modal-body
+            p Are you sure you want to delete this user
+          .modal-footer
+            form#delete-modal-form(role='form', method='post', action='/admin/users/del')
+              button.btn.btn-success(data-dismiss='modal') Canel
+              button.btn.btn-danger(type='submit') Delete
+
+block js
+  script.
+    $('.delete-confirm').click(function(){
+      var id=$(this).data('id');
+      console.log(id);
+      $('#delete-modal-form').attr('action','/admin/users/del/'+id);
+      $('#delete-modal').modal()  
+    })

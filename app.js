@@ -41,7 +41,9 @@ app.use(passport.session());
 
 //Pass user value in global scope
 app.use(function(req, res, next){
-    res.locals.user = req.user;
+    if (req.user) {
+        res.locals.user = req.user;
+    }
     next();
 });
 
