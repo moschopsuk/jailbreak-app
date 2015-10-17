@@ -1,91 +1,112 @@
 .header-btn {
-    background: -webkit-linear-gradient(top,rgba(255,255,255,.3) 0,rgba(255,255,255,.2) 100%);
-    background: linear-gradient(to bottom,rgba(255,255,255,.3) 0,rgba(255,255,255,.2) 100%);
-    border-radius: 3px;
-    color: #f3f3f3;
-    display: block;
-    float: left;
-    font-weight: 700;
-    height: 40px;
-    line-height: 40px;
-    margin-right: 8px;
-    min-width: 30px;
-    padding: 0;
-    position: relative;
-    user-select: none;
-}
-.header-btn.header-woof {
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3) 0, rgba(255, 255, 255, 0.2) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0, rgba(255, 255, 255, 0.2) 100%);
+  border-radius: 3px;
+  color: #f3f3f3;
+  display: block;
+  float: left;
+  font-weight: 700;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 8px;
+  min-width: 30px;
+  padding: 0;
+  position: relative;
+  user-select: none;
+
+  &.header-woof {
     background: 0 0;
     box-shadow: none;
     overflow: hidden;
     height: 41px;
     width: 180px;
     top: 10px;
-}
-.header-btn.header-woof:hover {
-    overflow: visible;
-}
-.header-btn.header-woof .clifford-talk-small-icon {
-    background-image: url('/images/clifford.png');
-    background-repeat: no-repeat;
-}
-.header-btn.header-woof .clifford-talk-small-icon {
-    background-size: 50px 45px;
-    display: block;
-    height: 60px;
-    left: 0;
-    position: absolute;
-    top: 5px;
-    -webkit-transition: top 85ms ease-in, margin 85ms ease-in;
-    transition: top 85ms ease-in, margin 85ms ease-in;
-    width: 60px;
-}
-.header-btn.header-woof .left-arrow {
-    border-right: 7px solid #cc0033;
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    height: 0;
-    left: -7px;
-    position: absolute;
-    top: 8px;
-    -webkit-transition: border-right-color 85ms ease-in;
-    transition: border-right-color 85ms ease-in;
-    width: 0;
-}
-.header-btn.header-woof .header-btn-text {
-    color: #fff;
-    background-color: #cc0033;
-    border-radius: 3px;
-    line-height: 18px;
-    padding: 6px 8px;
-    position: absolute;
-    left: 56px;
-    top: 45px;
-    -webkit-transition: top 85ms ease-in, background-color 85ms ease-in;
-    transition: top 85ms ease-in, background-color 85ms ease-in;
-    white-space: nowrap;
-}
-.header-btn.header-woof .header-btn-text:hover {
-    color: #fff;
-}
-.header-btn.header-woof.woof-hide {
-    width: 0;
-    min-width: 0;
-}
-.header-btn.header-woof.woof-hide .header-btn-text, .header-btn.header-woof.woof-hide .clifford-talk-small-icon {
-    top: 45px;
-}
-.header-btn.header-woof.woof-crouch .clifford-talk-small-icon {
-    top: 15px;
-}
-.header-btn.header-woof.woof-crouch .header-btn-text {
-    top: 45px;
-}
-.header-btn.header-woof.woof-crouch:hover .header-btn-text, .header-btn.header-woof.woof-crouch:hover .clifford-talk-small-icon, .header-btn.header-woof.woof-up .header-btn-text, .header-btn.header-woof.woof-up .clifford-talk-small-icon {
-    top: 0;
-}
-@media only screen and (min-width:751px) and (max-width:900px) {
-    .header-btn.header-btn-feedback, .header-btn.header-woof .header-btn-text {
-        display: none;
+
+    &:hover {
+      overflow: visible;
     }
+
+    .clifford-talk-small-icon {
+      background-image: url('/images/clifford.png');
+      background-repeat: no-repeat;
+      background-size: 50px 45px;
+      display: block;
+      height: 60px;
+      left: 0;
+      position: absolute;
+      top: 5px;
+      -webkit-transition: top 85ms ease-in, margin 85ms ease-in;
+      transition: top 85ms ease-in, margin 85ms ease-in;
+      width: 60px;
+    }
+
+    .left-arrow {
+      border-right: 7px solid #cc0033;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      height: 0;
+      left: -7px;
+      position: absolute;
+      top: 8px;
+      -webkit-transition: border-right-color 85ms ease-in;
+      transition: border-right-color 85ms ease-in;
+      width: 0;
+    }
+
+    .header-btn-text {
+      color: #fff;
+      background-color: #cc0033;
+      border-radius: 3px;
+      line-height: 18px;
+      padding: 6px 8px;
+      position: absolute;
+      left: 56px;
+      top: 45px;
+      -webkit-transition: top 85ms ease-in, background-color 85ms ease-in;
+      transition: top 85ms ease-in, background-color 85ms ease-in;
+      white-space: nowrap;
+
+      &:hover {
+        color: #fff;
+      }
+
+    }
+
+    &.woof-hide {
+      width: 0;
+      min-width: 0;
+
+      .header-btn-text, .clifford-talk-small-icon {
+        top: 45px;
+      }
+    }
+    &.woof-crouch {
+      .clifford-talk-small-icon {
+        top: 15px;
+      }
+
+      .header-btn-text {
+        top: 45px;
+      }
+
+      &:hover {
+        .header-btn-text, .clifford-talk-small-icon {
+          top: 0;
+        }
+      }
+    }
+    &.woof-up {
+      .header-btn-text, .clifford-talk-small-icon {
+        top: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 751px) and (max-width: 900px) {
+  .header-btn {
+    &.header-btn-feedback, &.header-woof .header-btn-text {
+      display: none;
+    }
+  }
 }
