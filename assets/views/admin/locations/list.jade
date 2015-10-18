@@ -5,6 +5,9 @@ block content
   h1 Location Updates
   .row
     .col-md-12
+      .text-center
+        +pagination(pages, page, '/admin/locations/')
+        
       .panel.panel-default
         table.table.table-bordered.table-striped
           thead

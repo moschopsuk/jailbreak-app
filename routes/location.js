@@ -4,27 +4,6 @@ var express     = require('express'),
     Team        = require('../models/team'),
     geo         = require('../lib/distance');
 
-router.get('/:page*?', function(req, res) {
-    var page = (req.params.page > 0 ? req.params.page : 1) - 1;
-    var perPage = 30;
-    var options = {
-        perPage: perPage,
-        page: page
-    };
-
-    Loc.list(options, function (err, locations) {
-        if (err) return res.render('500');
-
-        Loc.count().exec(function (err, count) {
-            res.render('admin/locations/list', {
-                locations: locations,
-                page: page + 1,
-                pages: Math.ceil(count / perPage)
-            });
-        });
-    });
-});
-
 router.get('/new/:id', function(req, res) {
     var id = req.params.id;
 
@@ -101,6 +80,27 @@ router.post('/del/:id', function(req, res) {
 
         req.flash('success', 'Location Deleted');
         res.redirect('/admin/locations');
+    });
+});
+
+router.get('/:page*?', function(req, res) {
+    var page = (req.params.page > 0 ? req.params.page : 1) - 1;
+    var perPage = 30;
+    var options = {
+        perPage: perPage,
+        page: page
+    };
+
+    Loc.list(options, function (err, locations) {
+        if (err) return res.render('500');
+
+        Loc.count().exec(function (err, count) {
+            res.render('admin/locations/list', {
+                locations: locations,
+                page: page + 1,
+                pages: Math.ceil(count / perPage)
+            });
+        });
     });
 });
 

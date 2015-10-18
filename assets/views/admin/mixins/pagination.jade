@@ -6,7 +6,7 @@ mixin pagination(numPages, curr, base)
                     a(href='#') Prev
             - else
                 li
-                    a(href=curr=curr-1) Prev
+                    a(href='#{base}#{(curr=curr-1)}') Prev
             - for(var i=0;i<start+numPages;i++) {
                 - if(i==curr)
                     li.active
@@ -16,4 +16,4 @@ mixin pagination(numPages, curr, base)
                         a(href='#{base}#{i}') #{i}
             - }
             li
-                a(href=(curr=curr+1)) Next
+                a(href='#{base}#{(curr=curr+1)}') Next
