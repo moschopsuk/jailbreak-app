@@ -1,11 +1,11 @@
 extends ../layout.jade
 
 block content
-    h1 Add new location
+    h1 Edit location
     .row
       .col-md-7
         .panel.pan.well
-          form(role='form', method='post', action='/admin/locations/new/#{_id}')
+          form(role='form', method='post', action='/admin/locations/edit/#{_id}')
             include form
 
       .col-md-5
@@ -22,7 +22,7 @@ block js
           center: {lat: 54.378, lng: -3.435},
           zoom: 5
       });
-      
+            
       var input = document.getElementById('map-search');
       var geocoder = new google.maps.Geocoder;
       var autocomplete = new google.maps.places.Autocomplete(input);
@@ -33,6 +33,16 @@ block js
           draggable:true,
           anchorPoint: new google.maps.Point(0, -29)
        });
+       
+       if($('#lat').val() && $('#lon').val()) {
+           var pos = new google.maps.LatLng($('#lat').val(), $('#lon').val());
+           
+           marker.setPosition(pos);
+           marker.setVisible(true);
+           
+           map.setCenter(pos);
+           map.setZoom(17);
+       }
        
         google.maps.event.addListener(marker, 'dragend', function(m) {
             $('#lat').val(m.latLng.lat());

@@ -56,8 +56,7 @@ block content
 block js
   script.
     $('.delete-confirm').click(function(){
-      var id=$(this).data('id');
-      console.log(id);
+      var id = $(this).data('id');
       $('#delete-modal-form').attr('action','/admin/users/del/'+id);
       $('#delete-modal').modal()  
     })

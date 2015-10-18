@@ -1,4 +1,56 @@
+include ../mixins/pagination.jade
 extends ../layout.jade
 
 block content
-    h1 Last Locations
+  h1 Location Updates
+  .row
+    .col-md-12
+      .panel.panel-default
+        table.table.table-bordered.table-striped
+          thead
+            th.col-md-3 Team
+            th.col-md-4 Place
+            th.col-md-1 Dist.
+            th.col-md-2 Added
+            th.col-md-2.text-center Action
+          tbody
+          if (locations.length)
+            each loc in locations
+              tr
+                td #{loc._team.name}
+                td #{loc.place}
+                td #{loc.distance} km
+                td
+                  span(data-livestamp='#{loc.timestamp}')
+                td.text-center
+                  a.btn.btn-info.btn-xs(href='/admin/locations/edit/#{loc._id}')
+                    span.glyphicon.glyphicon-edit
+                    |  Edit
+                  |  
+                  a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{loc._id}')
+                    span.glyphicon.glyphicon-remove
+                    |  Del
+                    
+      .text-center
+        +pagination(pages, page, '/admin/locations/')
+        
+    #delete-modal.modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-header
+            a.close(data-dismiss='modal') ×
+            h3 Delete Location
+          .modal-body
+            p Are you sure you want to delete this location
+          .modal-footer
+            form#delete-modal-form(role='form', method='post', action='/admin/locations/del')
+              button.btn.btn-success(data-dismiss='modal') Canel
+              button.btn.btn-danger(type='submit') Delete
+
+block js
+  script.
+    $('.delete-confirm').click(function(){
+        var id = $(this).data('id');
+        $('#delete-modal-form').attr('action','/admin/locations/del/'+id);
+        $('#delete-modal').modal()  
+    });

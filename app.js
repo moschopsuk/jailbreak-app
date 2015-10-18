@@ -1,19 +1,20 @@
-var express         = require('express'),
-    bodyParser      = require('body-parser'),
-    logger          = require('morgan'),
-    cookieParser    = require('cookie-parser'),
-    bodyParser      = require('body-parser'),
-    passport        = require('passport'),
-    mongoose        = require('mongoose'),
-    session         = require('express-session'),
-    flash           = require('express-flash'),
-    env             = require('node-env-file'),
-    app             = express();
+var express             = require('express'),
+    bodyParser          = require('body-parser'),
+    logger              = require('morgan'),
+    cookieParser        = require('cookie-parser'),
+    bodyParser          = require('body-parser'),
+    passport            = require('passport'),
+    mongoose            = require('mongoose'),
+    session             = require('express-session'),
+    flash               = require('express-flash'),
+    env                 = require('node-env-file'),
+    app                 = express();
 
 //Envronmental
 env(__dirname + '/.env');
 
 //Connect to DB
+mongoose.Promise    = require('bluebird');
 mongoose.connect(process.env.MONGODB);
 
 //Setup passport service

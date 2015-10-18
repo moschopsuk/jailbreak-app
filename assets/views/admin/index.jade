@@ -1,4 +1,21 @@
 extends ./layout.jade
 
 block content
-  h1 Dashboard
+  h1 Leaderboard
+  .row
+    .col-md-12
+      .panel.panel-default
+        table.table.table-bordered.table-striped
+          thead
+            th.col-md-1 #
+            th.col-md-4 Team Name
+            th.col-md-3 Last Location
+            th.col-md-2 Dist.
+          tbody
+          if (leaderboard.length)
+            each team in leaderboard
+              tr
+                td #{team.position}
+                td #{team._team.name}
+                td #{team.place}
+                td #{team.distance} km

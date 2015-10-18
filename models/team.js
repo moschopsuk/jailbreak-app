@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    Loc = require('./locations'),
     Schema = mongoose.Schema;
 
 var TeamSchema = new Schema({
@@ -6,8 +7,7 @@ var TeamSchema = new Schema({
     members     : String,
     notes       : String,
     mobNumber   : Number,
-    email       : String,
-    locations   : [{ type: Schema.Types.ObjectId, ref: 'Location' }]
+    email       : String
 });
 
 TeamSchema.path('name').required(true, 'Team name cannot be blank');
@@ -22,5 +22,9 @@ TeamSchema.statics = {
         .exec(cb);
     }
 }
+
+TeamSchema.methods.locations = function (done) {
+    return Loc.find({_team: this._id}, done);
+};
 
 module.exports = mongoose.model('Team', TeamSchema);

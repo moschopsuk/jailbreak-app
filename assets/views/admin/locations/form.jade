@@ -1,0 +1,13 @@
+.form-group
+  label(for='place') Place Name:
+  input#map-search.form-control(type='place', name='place', value=place)
+.form-group
+  label(for='lat') Latitude:
+  input#lat.form-control(type='lat', name='lat', value=lat)
+.form-group
+  label(for='lon') Longitude:
+  input#lon.form-control(type='lon', name='lon', value=lon)
+ .form-group
+  label(for='notes') Notes:
+  textarea#notes.form-control(type='notes', rows='3', name='notes') #{notes}
+button.btn.btn-info(type='submit') Submit
