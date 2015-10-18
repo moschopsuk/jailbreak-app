@@ -3,13 +3,13 @@ extends ./layout.jade
 block content
   h1 Leaderboard
   .row
-    .col-md-12
+    .col-md-9
       .panel.panel-default
         table.table.table-bordered.table-striped
           thead
             th.col-md-1 #
-            th.col-md-4 Team Name
-            th.col-md-3 Last Location
+            th.col-md-3 Team Name
+            th.col-md-4 Last Location
             th.col-md-3 Last Contacted
             th.col-md-1 Dist.
           tbody
@@ -22,3 +22,18 @@ block content
                 td 
                   span(data-livestamp='#{team.timestamp}')
                 td #{team.distance} km
+    
+    .col-md-3
+      .well
+        .form-group
+          label(for='team-select') Update Teams Location:
+          select#team-select.form-control
+            each team in teams
+              option(value=team._id) #{team.name}
+
+block js
+  script.
+    $("#team-select").change(function(){
+        var id = $(this).find(':selected').val();
+        window.location.href = '/admin/locations/new/' + id;
+    });

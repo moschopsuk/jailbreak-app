@@ -27,9 +27,9 @@ router.get('/', function(req, res) {
             key += 1;
         });
 
-        console.log(leaderboard);
-
-        res.render('admin/index', {leaderboard: leaderboard});
+        Team.find({}, function (err, teams) {
+            res.render('admin/index', {leaderboard: leaderboard, teams: teams});
+        });
     });
 });
 

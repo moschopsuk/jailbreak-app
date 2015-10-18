@@ -2,7 +2,7 @@ var express     = require('express'),
     router      = express.Router(),
     Team        = require('../models/team');
 
-router.get('/', function(req, res) {
+router.get('/:page*?', function(req, res) {
     var page = (req.params.page > 0 ? req.params.page : 1) - 1;
     var perPage = 30;
     var options = {

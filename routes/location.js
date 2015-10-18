@@ -1,9 +1,10 @@
 var express     = require('express'),
     router      = express.Router(),
     Loc         = require('../models/locations'),
+    Team        = require('../models/team'),
     geo         = require('../lib/distance');
 
-router.get('/', function(req, res) {
+router.get('/:page*?', function(req, res) {
     var page = (req.params.page > 0 ? req.params.page : 1) - 1;
     var perPage = 30;
     var options = {
@@ -27,7 +28,14 @@ router.get('/', function(req, res) {
 router.get('/new/:id', function(req, res) {
     var id = req.params.id;
 
-    res.render('admin/locations/new', {_id: id});
+    Team.findById(id, function (err, found) {
+        if(err) {
+            req.flash('warnings', 'Uknown team');
+            return res.redirect('/admin/locations');
+        }
+
+        res.render('admin/locations/new', {_id: id});
+    });
 });
 
 router.post('/new/:id', function(req, res) {
