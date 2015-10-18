@@ -1,0 +1,78 @@
+extends ../layout.jade
+
+block content
+    h1 Add new location
+    .row
+      .col-md-7
+        .panel.pan.well
+          form(role='form', method='post', action='/admin/locations/new/#{team}')
+            .form-group
+              label(for='place') Place Name:
+              input#map-search.form-control(type='place', name='place', value=place)
+            .form-group
+              label(for='lat') Latitude:
+              input#lat.form-control(type='lat', name='lat', value=lat)
+            .form-group
+              label(for='lon') Longitude:
+              input#lon.form-control(type='lon', name='lon', value=lon)
+             .form-group
+              label(for='notes') Notes:
+              textarea#notes.form-control(type='notes', rows='3', name='notes') #{notes}
+            button.btn.btn-info(type='submit') Submit
+
+      .col-md-5
+        #loc-map
+
+block js
+  script.
+    $(document).on("keypress", ":input:not(textarea)", function(event) {
+        return event.keyCode != 13;
+    });
+    
+    $( document ).ready(function() {
+      var map = new google.maps.Map(document.getElementById('loc-map'), {
+          center: {lat: 54.378, lng: -3.435},
+          zoom: 5
+      });
+      
+      var input = document.getElementById('map-search');
+      var geocoder = new google.maps.Geocoder;
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo('bounds', map);
+      
+      var marker = new google.maps.Marker({
+          map: map,
+          draggable:true,
+          anchorPoint: new google.maps.Point(0, -29)
+       });
+       
+        google.maps.event.addListener(marker, 'dragend', function(m) {
+            $('#lat').val(m.latLng.lat());
+            $('#lon').val(m.latLng.lng());
+            
+            geocoder.geocode({'location': m.latLng}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        $('#map-search').val(results[1].formatted_address);
+                    }
+                }
+            });
+        });
+       
+       autocomplete.addListener('place_changed', function() {
+           var place = autocomplete.getPlace();
+           
+           if (place.geometry.viewport) {
+               map.fitBounds(place.geometry.viewport);
+           } else {
+               map.setCenter(place.geometry.location);
+               map.setZoom(17);
+           }
+        
+           $('#lat').val(place.geometry.location.lat);
+           $('#lon').val(place.geometry.location.lng);
+           
+           marker.setPosition(place.geometry.location);
+           marker.setVisible(true);
+       });
+    });

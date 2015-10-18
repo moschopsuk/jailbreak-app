@@ -5,6 +5,8 @@ var TeamSchema = new Schema({
     name        : String,
     members     : String,
     notes       : String,
+    mobNumber   : Number,
+    email       : String,
     locations   : [{ type: Schema.Types.ObjectId, ref: 'Location' }]
 });
 

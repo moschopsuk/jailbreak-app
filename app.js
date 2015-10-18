@@ -51,11 +51,12 @@ app.use(function(req, res, next){
 app.use("/", express.static(__dirname + "/public/"));
 
 //Various routes
-var auth    = require('./routes/auth')(app, passport),
-    admin   = require('./routes/admin'),
-    team    = require('./routes/team'),
-    user    = require('./routes/user'),
-    index   = require('./routes/index');
+var auth        = require('./routes/auth')(app, passport),
+    admin       = require('./routes/admin'),
+    team        = require('./routes/team'),
+    user        = require('./routes/user'),
+    location    = require('./routes/location');
+    index       = require('./routes/index');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
@@ -68,6 +69,7 @@ function isLoggedIn(req, res, next) {
 app.use('/admin', isLoggedIn, admin);
 app.use('/admin/teams', isLoggedIn, team);
 app.use('/admin/users', isLoggedIn, user);
+app.use('/admin/locations', isLoggedIn, location);
 
 //Gernic pages
 app.use('/', index);

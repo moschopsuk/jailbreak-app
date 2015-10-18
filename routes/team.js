@@ -32,7 +32,6 @@ router.post('/new', function(req, res) {
 
     team.save(function(err, team) {
         if(err) {
-            console.log(err);
             req.flash('errors', 'An Error occured creating the team.');
             return res.redirect('/admin/teams/new');
         }
