@@ -23,6 +23,7 @@ gulp.task('scripts', function() {
             config.vendorDir +'/bootstrap-sass/assets/javascripts/bootstrap.js',
             './assets/js/moment.js',
             './assets/js/livestamp.js',
+            './assets/js/jcrop.js',
             './assets/js/tracking-map.js',
         ])
         .pipe(concat('app.js'))

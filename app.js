@@ -29,7 +29,7 @@ app.use(logger('dev'));
 
 //Allow express to read POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
 //Allow express to handle cookies
 app.use(cookieParser());

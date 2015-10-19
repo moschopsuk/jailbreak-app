@@ -18,7 +18,6 @@ router.get('/', function(req, res) {
         }
     ], function (err, grouped) {
         Team.populate(grouped, { "path": "_id" }, function(err, leaderboard) {
-
             res.render('admin/index', {leaderboard: leaderboard});
         });
     });

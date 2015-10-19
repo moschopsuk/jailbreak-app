@@ -8,7 +8,8 @@ var TeamSchema = new Schema({
     members     : String,
     notes       : String,
     mobNumber   : Number,
-    email       : String
+    email       : String,
+    picture     : String,
 });
 
 TeamSchema.path('name').required(true, 'Team name cannot be blank');

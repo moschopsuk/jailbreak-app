@@ -11,6 +11,7 @@ This is currently a WIP repo for a jailbreak application for tracking the progre
 ##Prerequisites
 - **Node / npm**
 - **MongoDB**
+- **Imagemagick**
 
 ##Getting Started
 

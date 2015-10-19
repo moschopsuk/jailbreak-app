@@ -1,5 +1,10 @@
 var express     = require('express'),
     router      = express.Router(),
+    easyimg     = require('easyimage'),
+    Promise     = require('bluebird'),
+    fs          = require('fs'),
+    uuid        = require('node-uuid'),
+    path        = require('path'),
     Team        = require('../models/team');
 
 router.get('/new', function(req, res) {
@@ -81,5 +86,67 @@ router.get('/:page*?', function(req, res) {
         });
     });
 });
+
+function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+    if (matches.length !== 3) {
+        return new Error('Invalid input string');
+    }
+
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+
+    return response;
+}
+
+router.post('/picture/:id', function(req, res) {
+    var id = req.params.id;
+    var image = req.body.image;
+    var x1 = req.body.x1;
+    var y1 = req.body.y1;
+    var x2 = req.body.x2;
+    var y2 = req.body.y2;
+    var w = req.body.w;
+    var h = req.body.h;
+
+    var imageBuffer = decodeBase64Image(image);
+    var imageUUID = uuid.v4();
+    var rawImageFile = path.resolve(__dirname + '/../public/images/teams/raw/' + imageUUID + '.png');
+    var imageFile =  path.resolve(__dirname +'/../public/images/teams/' + imageUUID + '.png');
+
+    fs.writeFile(rawImageFile, imageBuffer.data, function(err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        easyimg.crop({
+            src:rawImageFile,
+            dst:imageFile,
+            x: x1,
+            y: y1,
+            cropwidth: w,
+            cropheight: h,
+            gravity: 'NorthWest',
+        }).then(
+             function(image) {
+                Team.findOneAndUpdate({_id:id}, {picture: imageUUID}, function (err, user) {
+                    if(err) {
+                        req.flash('errors', 'Unable to upload picture');
+                        return res.redirect('/admin/teams/edit/' + id);
+                    }
+
+                    req.flash('success', 'Picture uploaded!.');
+                    res.redirect('/admin/teams/edit/' + id);
+                });
+             },
+             function (err) {
+                console.log(err);
+             }
+        );
+    });
+});
+
 
 module.exports = router;
