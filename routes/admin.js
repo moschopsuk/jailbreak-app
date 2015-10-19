@@ -5,30 +5,21 @@ var express     = require('express'),
 
 router.get('/', function(req, res) {
 
-    var promise = Loc.find({})
-        .populate('_team')
-        .sort({distance:-1})
-        .exec();
-
-    promise.then(function(locations) {
-        var distinc = [];
-        var leaderboard = [];
-        var key = 1;
-        var position = 1;
-
-        locations.forEach(function(loc){
-            if(distinc[loc._team.id] === undefined){
-                distinc[loc._team.id] = true;
-                loc.position = position;
-                leaderboard.push(loc);
-                position += 1;
+    Loc.aggregate([
+        {
+            $group: {_id: "$_team",
+                distance:   { $max: "$distance" },
+                timestamp:  { $first: "$timestamp" },
+                place:      { $first: "$place" }
             }
+        },
+        {
+            $sort: { distance : -1 }
+        }
+    ], function (err, grouped) {
+        Team.populate(grouped, { "path": "_id" }, function(err, leaderboard) {
 
-            key += 1;
-        });
-
-        Team.find({}, function (err, teams) {
-            res.render('admin/index', {leaderboard: leaderboard, teams: teams});
+            res.render('admin/index', {leaderboard: leaderboard});
         });
     });
 });

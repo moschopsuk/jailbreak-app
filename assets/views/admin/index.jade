@@ -7,7 +7,6 @@ block content
       .panel.panel-default
         table.table.table-bordered.table-striped
           thead
-            th.col-md-1 #
             th.col-md-3 Team Name
             th.col-md-4 Last Location
             th.col-md-2 Last Contacted
@@ -16,8 +15,7 @@ block content
           if (leaderboard.length)
             each team in leaderboard
               tr
-                td #{team.position}
-                td #{team._team.name}
+                td #{team._id.name}
                 td #{team.place}
                 td 
                   span(data-livestamp='#{team.timestamp}')
@@ -28,8 +26,8 @@ block content
         .form-group
           label(for='team-select') Update Teams Location:
           select#team-select.form-control
-            each team in teams
-              option(value=team._id) #{team.name}
+            each team in leaderboard
+              option(value=team._id._id) #{team._id.name}
 
 block js
   script.
