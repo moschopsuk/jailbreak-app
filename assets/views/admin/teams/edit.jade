@@ -54,10 +54,12 @@ block js
         var teamProfile = $('#crop-button')[0].files[0];
         
         if (!rFilter.test(teamProfile.type)) {
+            console.log('Invalid Type!');
             return;
         }
         
-        if (teamProfile.size > 250 * 1024) {
+        if (teamProfile.size > 1024 * (1024 * 5)) {
+            console.log('Image too big!');
             return;
         }
         
