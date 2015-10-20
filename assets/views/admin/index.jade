@@ -7,14 +7,17 @@ block content
       .panel.panel-default
         table.table.table-bordered.table-striped
           thead
+            th.col-md-1 #
             th.col-md-3 Team Name
             th.col-md-4 Last Location
             th.col-md-2 Last Contacted
             th.col-md-2 Dist.
           tbody
+          - var n = 1
           if (leaderboard.length)
             each team in leaderboard
               tr
+                td= n++
                 td #{team._id.name}
                 td #{team.place}
                 td 
