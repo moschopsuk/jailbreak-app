@@ -48,32 +48,10 @@ app.use(function(req, res, next){
     next();
 });
 
+require('./routes')(express, app, passport);
+
 // Set /public as our static content dir
 app.use("/", express.static(__dirname + "/public/"));
-
-//Various routes
-var auth        = require('./routes/auth')(app, passport),
-    admin       = require('./routes/admin'),
-    team        = require('./routes/team'),
-    user        = require('./routes/user'),
-    location    = require('./routes/location');
-    index       = require('./routes/index');
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-
-    res.redirect('/auth/login');
-}
-
-//Admin systems
-app.use('/admin', isLoggedIn, admin);
-app.use('/admin/teams', isLoggedIn, team);
-app.use('/admin/users', isLoggedIn, user);
-app.use('/admin/locations', isLoggedIn, location);
-
-//Gernic pages
-app.use('/', index);
 
 if (app.get('env') === 'dev') {
     app.locals.pretty = true;
