@@ -22,25 +22,25 @@
     width: 180px;
     top: 10px;
 
-    &:hover {  
-		.clifford-talk-left-paw,
-		.clifford-talk-right-paw{
-			-webkit-animation-name: pawsin;
-			-webkit-animation-duration: 300ms;
-			-webkit-animation-iteration-count:1;
-			-moz-animation-name: pawsin;
-			-moz-animation-duration: 300ms;
-			-moz-animation-iteration-count:1;
-			animation-name: pawsin;
-			animation-duration: 300ms;
-			animation-iteration-count:1;
-			top: 0px;
-			z-index:2;
-		}
-		
-		.clifford-talk-small-icon {
-			transition-delay:200ms;
-		}
+    &:hover {
+        .clifford-talk-left-paw,
+        .clifford-talk-right-paw{
+            -webkit-animation-name: pawsin;
+            -webkit-animation-duration: 300ms;
+            -webkit-animation-iteration-count:1;
+            -moz-animation-name: pawsin;
+            -moz-animation-duration: 300ms;
+            -moz-animation-iteration-count:1;
+            animation-name: pawsin;
+            animation-duration: 300ms;
+            animation-iteration-count:1;
+            top: 0px;
+            z-index:2;
+        }
+
+        .clifford-talk-small-icon {
+            transition-delay:200ms;
+        }
     }
 
     .clifford-talk-small-icon {
@@ -121,19 +121,19 @@
 }
 
 .clifford-talk-container{
-	position:absolute;
-	width:180px;
-	height:48px;
-	overflow:hidden;
+    position:absolute;
+    width:180px;
+    height:48px;
+    overflow:hidden;
 }
 
 .clifford-talk-hider{
-	width: 180px;
-	height:8px;
-	top:41px;
-	position:absolute;
-	background-color:rgb(255,255,255);
-	z-index:1;
+    width: 180px;
+    height:8px;
+    top:41px;
+    position:absolute;
+    background-color:rgb(255,255,255);
+    z-index:1;
 }
 
 .clifford-talk-right-paw,
@@ -149,62 +149,62 @@
 }
 
 .clifford-talk-right-paw {
-  background-image: url("./images/clifford_paw_right.png");
+  background-image: url('/images/clifford_paw_right.png');
 }
 
 .clifford-talk-left-paw {
-  background-image: url("./images/clifford_paw_left.png");
+  background-image: url('/images/clifford_paw_left.png');
 }
 
 @-webkit-keyframes pawsin{
-	from{
-		top:-2px;
-		z-index:-1;
-	}
-	
-	70%{
-		top:-8px;
-		z-index:1;
-	}
-	
-	to{
-		top:0px;
-		z-index:2;
-	}
+    from{
+        top:-2px;
+        z-index:-1;
+    }
+
+    70%{
+        top:-8px;
+        z-index:1;
+    }
+
+    to{
+        top:0px;
+        z-index:2;
+    }
 }
 
 @-moz-keyframes pawsin{
-	from{
-		top:-2px;
-		z-index:-1;
-	}
-	
-	70%{
-		top:-8px;
-		z-index:1;
-	}
-	
-	to{
-		top:0px;
-		z-index:2;
-	}
+    from{
+        top:-2px;
+        z-index:-1;
+    }
+
+    70%{
+        top:-8px;
+        z-index:1;
+    }
+
+    to{
+        top:0px;
+        z-index:2;
+    }
 }
 
 @keyframes pawsin{
-	from{
-		top:-2px;
-		z-index:-1;
-	}
-	
-	70%{
-		top:-8px;
-		z-index:1;
-	}
-	
-	to{
-		top:0px;
-		z-index:2;
-	}
+    from{
+        top:-2px;
+        z-index:-1;
+    }
+
+    70%{
+        top:-8px;
+        z-index:1;
+    }
+
+    to{
+        top:0px;
+        z-index:2;
+    }
 }
 
 @media only screen and (min-width: 751px) and (max-width: 900px) {
@@ -216,12 +216,12 @@
 }
 
 @media only screen and (max-width: 750px) {
-	.clifford-talk-hider{
-		height:6px;
-		background-color:rgb(34,34,34);
-	}
-	
-	.clifford-talk-container{
-		height:46px;
-	}
+    .clifford-talk-hider{
+        height:6px;
+        background-color:rgb(34,34,34);
+    }
+
+    .clifford-talk-container{
+        height:46px;
+    }
 }
