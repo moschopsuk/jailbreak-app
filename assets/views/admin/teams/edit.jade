@@ -21,8 +21,6 @@ block content
           input#image(type='hidden', name='image')
           input#x1(type='hidden', name='x1')
           input#y1(type='hidden', name='y1')
-          input#x2(type='hidden', name='x2')
-          input#y2(type='hidden', name='y2')
           input#w(type='hidden', name='w')
           input#h(type='hidden', name='h')
           .modal-dialog
@@ -44,8 +42,6 @@ block js
     function updateThumbnail(e) {
         $('#x1').val(e.x);
         $('#y1').val(e.y);
-        $('#x2').val(e.x2);
-        $('#y2').val(e.y2);
         $('#w').val(e.w);
         $('#h').val(e.h);
     };
