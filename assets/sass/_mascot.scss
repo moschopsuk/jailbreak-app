@@ -17,7 +17,7 @@
   &.header-woof {
     background: 0 0;
     box-shadow: none;
-    overflow: hidden;
+    overflow: visible;
     height: 41px;
     width: 180px;
     top: 10px;
@@ -124,7 +124,7 @@
     position:absolute;
     width:180px;
     height:48px;
-    overflow:hidden;
+    overflow:visible;
 }
 
 .clifford-talk-hider{
