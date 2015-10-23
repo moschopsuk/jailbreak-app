@@ -13,6 +13,18 @@ This is currently a WIP repo for a jailbreak application for tracking the progre
 - **MongoDB**
 - **Imagemagick**
 
+**Aditional Prerequisites**
+A nodejs plugin may not install correctly if libkrb5 can't be found on the system
+
+```bash
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+
+apt-get update
+
+apt-get install libkrb5-dev mongodb-org
+```
+
 ##Getting Started
 
 ```bash
