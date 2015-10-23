@@ -12,7 +12,9 @@ var config = {
 gulp.task('css', function() {
     return gulp.src('./assets/sass/app.scss')
         .pipe(sass({
-            includePaths: [config.vendorDir + '/bootstrap-sass/assets/stylesheets'],
+            includePaths: [
+                config.vendorDir + '/bootstrap-sass/assets/stylesheets'
+            ],
         }))
         .pipe(gulp.dest(config.publicDir + '/css'));
 });
@@ -20,8 +22,9 @@ gulp.task('css', function() {
 gulp.task('scripts', function() {
     return gulp.src([
             config.vendorDir +'/jquery/dist/jquery.js',
+            config.vendorDir +'/moment/moment.js',
+            config.vendorDir +'/moment-timezone/builds/moment-timezone-with-data.js',
             config.vendorDir +'/bootstrap-sass/assets/javascripts/bootstrap.js',
-            './assets/js/moment.js',
             './assets/js/livestamp.js',
             './assets/js/jcrop.js',
             './assets/js/tracking-map.js',

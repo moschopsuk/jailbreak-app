@@ -17,6 +17,8 @@ block js
         return event.keyCode != 13;
     });
     
+    $('#timestamp').val(moment().format('ddd MMM DD YYYY HH:mm:ss'));
+    
     $( document ).ready(function() {
       var map = new google.maps.Map(document.getElementById('loc-map'), {
           center: {lat: 54.378, lng: -3.435},
