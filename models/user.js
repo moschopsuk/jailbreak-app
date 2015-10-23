@@ -7,6 +7,7 @@ var UserSchema = new Schema({
     fullName:       { type: String,  },
     password:       { type: String,  },
     isAdmin:        { type: Boolean,    default: false    },
+    isActivated:    { type: Boolean,    default: false    },
     lastLogin:      { type: Date,       default: Date.now }
 });
 

@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
 
     // process the signup form
     app.post('/auth/register', passport.authenticate('local-signup', {
-        successRedirect : '/admin',
+        successRedirect : '/auth/login',
         failureRedirect : '/auth/register',
         failureFlash : true
     }));

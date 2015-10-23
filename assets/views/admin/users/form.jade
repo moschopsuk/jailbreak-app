@@ -9,8 +9,12 @@
           label(for= 'email') Email:
           input#email.form-control(type='email', name='email', value='#{email}')
         .form-group
+          label(for= 'isActivated') Acount Active:
+          input(type="hidden", name="isActivated", value=0)
+          input#isAdmin.form-control(type='checkbox', name='isActivated', checked=isActivated?"checked":undefined) 
+        .form-group
           label(for= 'isAdmin') Admin Access:
           input(type="hidden", name="isAdmin", value=0)
           input#isAdmin.form-control(type='checkbox', name='isAdmin', checked=isAdmin?"checked":undefined)
-            
+                     
         button.btn.btn-info(type='submit') Submit
