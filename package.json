@@ -4,9 +4,7 @@
   "description": "Application to show progress of students on the jailbreak challange",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "bower_install": "./node_modules/bower/bin/bower install",
-    "postinstall": "npm run bower_install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "map",
