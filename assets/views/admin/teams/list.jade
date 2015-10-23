@@ -26,9 +26,10 @@ block content
                     span.glyphicon.glyphicon-edit
                     |  Edit
                   |  
-                  a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{team._id}')
-                    span.glyphicon.glyphicon-remove
-                    |  Del
+                  if user.isAdmin
+                    a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{team._id}')
+                      span.glyphicon.glyphicon-remove
+                      |  Del
                     
       .text-center
         +pagination(pages, page, '/admin/teams/')
