@@ -46,12 +46,7 @@ TeamSchema.pre('save', function(next) {
 });
 
 TeamSchema.post('remove', function() {
-    Loc.find({_team: this._id}).remove(function(err) {
-        console.log('called!')
-        if(err) {
-            console.log(err);
-        }
-    });
+    Loc.find({_team: this._id}).remove(function(err) {});
 });
 
 TeamSchema.methods.locations = function (done) {
