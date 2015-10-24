@@ -45,6 +45,15 @@ TeamSchema.pre('save', function(next) {
     });
 });
 
+TeamSchema.post('remove', function() {
+    Loc.find({_team: this._id}).remove(function(err) {
+        console.log('called!')
+        if(err) {
+            console.log(err);
+        }
+    });
+});
+
 TeamSchema.methods.locations = function (done) {
     return Loc.find({_team: this._id}, done);
 };

@@ -55,11 +55,13 @@ router.post('/edit/:id', function(req, res) {
 router.post('/del/:id', function(req, res) {
     var id = req.params.id;
 
-    Team.remove({ _id: id }, function(err) {
+    Team.findById({ _id: id }, function(err, team) {
         if (err) {
             req.flash('errors', 'Unable to delete team');
             return res.redirect('/admin/teams');
         }
+
+        team.remove();
 
         req.flash('success', 'Team Deleted');
         res.redirect('/admin/teams');
