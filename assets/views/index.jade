@@ -6,7 +6,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title JailBreak App
     link(href='./css/app.css', rel='stylesheet')
-  body
+  body(ng-app='appMaps')
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container
         .navbar-header
@@ -21,6 +21,30 @@ html(lang='en')
             li.active
               a(href='#') Home
     
-    #map
+    #map-container
+    
+    .container
+      .row.row-centered
+        .col-md-9.col-centered
+          .panel.panel-default
+            table.table.table-bordered.table-striped
+              thead
+                th.col-md-1 #
+                th.col-md-3 Team Name
+                th.col-md-4 Last Location
+                th.col-md-2 Last Contacted
+                th.col-md-2 Dist.
+              tbody
+              - var n = 1
+              if (leaderboard.length)
+                each team in leaderboard
+                  tr
+                    td= n++
+                    td #{team._id.name}
+                    td #{team.place}
+                    td 
+                      span(data-livestamp='#{team.timestamp}')
+                    td #{team.distance} km
+
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
     script(src='./js/app.js')

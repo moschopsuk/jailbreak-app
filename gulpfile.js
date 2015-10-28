@@ -25,6 +25,7 @@ gulp.task('scripts', function() {
             config.vendorDir +'/moment/moment.js',
             config.vendorDir +'/moment-timezone/builds/moment-timezone-with-data.js',
             config.vendorDir +'/bootstrap-sass/assets/javascripts/bootstrap.js',
+            './assets/js/gmap3.js',
             './assets/js/livestamp.js',
             './assets/js/jcrop.js',
             './assets/js/tracking-map.js',
