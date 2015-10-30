@@ -4,7 +4,7 @@ var type     = thinky.type;
 var bcrypt   = require('bcrypt-nodejs');
 
 var User = thinky.createModel("User", {
-    id:             type.string(),
+    id:            type.string(),
     email:          type.string(),
     fullName:       type.string(),
     password:       type.string(),
