@@ -14,8 +14,8 @@ var express             = require('express'),
 env(__dirname + '/.env');
 
 //Connect to DB
-mongoose.Promise = require('bluebird');
-mongoose.connect(process.env.MONGODB);
+//mongoose.Promise = require('bluebird');
+//mongoose.connect(process.env.MONGODB);
 
 //Setup passport service
 require('./lib/passport')(passport);

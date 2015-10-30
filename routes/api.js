@@ -3,25 +3,25 @@ var express     = require('express'),
     Team        = require('../models/team'),
     Locations   = require('../models/locations');
 
+
 router.get('/leaderboard', function(req, res) {
-    var promise = Locations.aggregate([
+
+    Locations.aggregate([
         {
-            $group: {_id: "$_team",
-                distance:   { $max: "$distance" },
-                timestamp:  { $first: "$timestamp" },
-                place:      { $first: "$place" }
+            $group:{
+                _id: "$_id",
+                distance: { $max: "$distance"  },
+                team: { $first: "$_team" },
+                place: { $first: "$place" }
             }
         },
         {
-            $sort: { distance : -1 }
+            $sort: { timestamp : -1 }
         }
-    ]).exec();
-
-    promise.then(function(locations) {
-        Team.populate(locations, { "path": "_id" }, function(err, leaderboard) {
-            res.setHeader('Content-Type', 'application/json');
-            res.json(leaderboard);
-        });
+    ], function (err, grouped) {
+        //Team.populate(grouped, { "path": "_id._team" }, function(err, leaderboard) {
+            res.json(grouped);
+        //});
     });
 });
 
