@@ -1,71 +1,70 @@
-var express     = require('express'),
-    router      = express.Router(),
-    User        = require('../models/user');
+var express     = require('express');
+var router      = express.Router();
+var config      = require(__dirname+'/../config.js');
+var thinky      = require('thinky')(config);
+var Errors      = thinky.Errors;
+var User        = require('../models/user');
 
 router.get('/edit/:id', function(req, res) {
     var id = req.params.id;
+    var promise = User.get(id);
 
-    User.findById(id, function (err, user){
-        if(err) {
-            req.flash('errors', 'Unable to find user');
-            return res.redirect('/admin/users');
-        }
-
+    promise.then(function(user) {
         res.render('admin/users/edit', user);
+    }).catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to find user');
+        return res.redirect('/admin/users');
     });
 });
 
 router.post('/edit/:id', function(req, res) {
     var id = req.params.id;
+    var promise = User.get(id);
 
-    User.findOneAndUpdate({_id:id}, req.body, function (err, user) {
-        if(err) {
-            req.flash('errors', 'Unable to update details');
-            return res.redirect('/admin/users/edit/' + id);
-        }
+    console.log(req.body);
 
+    promise.then(function(user) {
+        user.email          = req.body.email;
+        user.fullName       = req.body.fullName;
+        user.isAdmin        = (req.body.isAdmin == "on") ? true : false;
+        user.isActivated    = (req.body.isActivated == "on") ? true : false;
+        return user.save()
+    })
+    .then(function(result) {
         req.flash('success', 'Account Updated.');
         res.redirect('/admin/users');
+    })
+    .catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to update details');
+        return res.redirect('/admin/users/edit/' + id);
     });
 });
 
 router.post('/del/:id', function(req, res) {
     var id = req.params.id;
+    var promise = User.get(id);
 
     if(id === req.user.id) {
         req.flash('warnings', 'You can\'t delete yourself!');
         return res.redirect('/admin/users');
     }
 
-    User.remove({ _id: id }, function(err) {
-        if (err) {
-            req.flash('errors', 'Unable to delete user');
-            return res.redirect('/admin/users');
-        }
-
+    promise.then(function(user) {
+        return user.delete();
+    })
+    .then(function(result) {
         req.flash('success', 'User Deleted');
         res.redirect('/admin/users');
+    })
+    .catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to delete user');
+        return res.redirect('/admin/users');
     });
 });
 
-router.get('/:page*?', function(req, res) {
-    var page = (req.params.page > 0 ? req.params.page : 1) - 1;
-    var perPage = 30;
-    var options = {
-        perPage: perPage,
-        page: page
-    };
-
-    User.list(options, function (err, users) {
-        if (err) return res.render('500');
-
-        User.count().exec(function (err, count) {
-            res.render('admin/users/list', {
-                users: users,
-                page: page + 1,
-                pages: Math.ceil(count / perPage)
-            });
-        });
+router.get('/', function(req, res) {
+    User.run().then(function(users) {
+        res.render('admin/users/list', {users: users});
     });
 });
 
