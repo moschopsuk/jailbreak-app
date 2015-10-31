@@ -5,7 +5,7 @@ block content
     .row
       .col-md-8
         .panel.pan.well
-          form(role='form', method='post', action='/admin/teams/edit/#{_id}')
+          form(role='form', method='post', action='/admin/teams/edit/#{id}')
             include form
 
       .col-md-4
@@ -17,7 +17,7 @@ block content
                 input#crop-button(type='file', onchange='fileSelect()')
 
       #crop-modal.modal.fade
-        form(role='form', method='post', action='/admin/teams/picture/#{_id}')
+        form(role='form', method='post', action='/admin/teams/picture/#{id}')
           input#image(type='hidden', name='image')
           input#x1(type='hidden', name='x1')
           input#y1(type='hidden', name='y1')

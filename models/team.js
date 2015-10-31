@@ -7,7 +7,7 @@ var Team = thinky.createModel("Teams", {
     name:       type.string(),
     members:    type.string(),
     notes:      type.string(),
-    mobNumber:  type.number(),
+    mobNumber:  type.string(),
     email:      type.string(),
     picture:    type.string(),
 });
@@ -15,6 +15,7 @@ var Team = thinky.createModel("Teams", {
 
 Team.pre('save', function(next) {
     console.log(this);
+    next();
 });
 
 module.exports = Team;

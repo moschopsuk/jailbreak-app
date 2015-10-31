@@ -1,11 +1,14 @@
-var express     = require('express'),
-    router      = express.Router(),
-    easyimg     = require('easyimage'),
-    Promise     = require('bluebird'),
-    fs          = Promise.promisifyAll(require('fs')),
-    uuid        = require('node-uuid'),
-    path        = require('path'),
-    Team        = require('../models/team');
+var express     = require('express');
+var router      = express.Router();
+var config      = require(__dirname+'/../config.js');
+var thinky      = require('thinky')(config);
+var Errors      = thinky.Errors;
+var Team        = require('../models/team');
+var easyimg     = require('easyimage');
+var Promise     = require('bluebird');
+var fs          = Promise.promisifyAll(require('fs'));
+var uuid        = require('node-uuid');
+var path        = require('path');
 
 router.get('/new', function(req, res) {
     res.render('admin/teams/new');
@@ -14,78 +17,71 @@ router.get('/new', function(req, res) {
 router.post('/new', function(req, res) {
     var team = new Team(req.body);
 
-    team.save(function(err, team) {
-        if(err) {
-            req.flash('errors', 'An Error occured creating the team.');
-            return res.redirect('/admin/teams/new');
-        }
-
+    team.save().then(function(result) {
+        console.log(result);
         req.flash('success', 'New team created.');
+        res.redirect('/admin/teams');
+    })
+    .error(function(error) {
+        req.flash('errors', 'An Error occured creating the team.');
         res.redirect('/admin/teams');
     });
 });
 
 router.get('/edit/:id', function(req, res) {
     var id = req.params.id;
+    var promise = Team.get(id);
 
-    Team.findById(id, function (err, user){
-        if(err) {
-            req.flash('errors', 'Unable to find user');
-            return res.redirect('/admin/teams');
-        }
-
-        res.render('admin/teams/edit', user);
+    promise.then(function(team) {
+        res.render('admin/teams/edit', team);
+    }).catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to find team');
+        return res.redirect('/admin/teams');
     });
 });
 
 router.post('/edit/:id', function(req, res) {
     var id = req.params.id;
+    var promise = Team.get(id);
 
-    Team.findOneAndUpdate({_id:id}, req.body, function (err, user) {
-        if(err) {
-            req.flash('errors', 'Unable to update details');
-            return res.redirect('/admin/teams/edit/' + id);
-        }
-
+    promise.then(function(team) {
+        team.name       = req.body.name;
+        team.members    = req.body.members;
+        team.mobNumber  = req.body.mobNumber;
+        team.email      = req.body.email;
+        team.notes      = req.body.notes;
+        return team.save();
+    })
+    .then(function(result) {
         req.flash('success', 'Team Updated.');
         res.redirect('/admin/teams');
+    })
+    .catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to update details');
+        return res.redirect('/admin/teams/edit/' + id);
     });
 });
 
 router.post('/del/:id', function(req, res) {
     var id = req.params.id;
+    var promise = Team.get(id);
 
-    Team.findById({ _id: id }, function(err, team) {
-        if (err) {
-            req.flash('errors', 'Unable to delete team');
-            return res.redirect('/admin/teams');
-        }
-
-        team.remove();
-
+    promise.then(function(team) {
+        return team.delete();
+    })
+    .then(function(result) {
         req.flash('success', 'Team Deleted');
         res.redirect('/admin/teams');
+    })
+    .catch(Errors.DocumentNotFound, function(err) {
+        req.flash('errors', 'Unable to delete team');
+        return res.redirect('/admin/teams');
     });
 });
 
-router.get('/:page*?', function(req, res) {
-    var page = (req.params.page > 0 ? req.params.page : 1) - 1;
-    var perPage = 30;
-    var options = {
-        perPage: perPage,
-        page: page
-    };
-
-    Team.list(options, function (err, teams) {
-        if (err) return res.render('500');
-
-        Team.count().exec(function (err, count) {
-            res.render('admin/teams/list', {
-                teams: teams,
-                page: page + 1,
-                pages: Math.ceil(count / perPage)
-            });
-        });
+router.get('/', function(req, res) {
+    Team.run().then(function(teams) {
+        res.render('admin/teams/list', {teams: teams});
     });
 });
 
@@ -128,15 +124,13 @@ router.post('/picture/:id', function(req, res) {
             gravity: 'NorthWest',
         });
     }).then(function() {
-        Team.findOneAndUpdate({_id:id}, {picture: imageUUID}, function (err, user) {
-            if(err) {
-                req.flash('errors', 'Unable to upload picture');
-                return res.redirect('/admin/teams/edit/' + id);
-            }
-
-            req.flash('success', 'Picture uploaded!.');
-            res.redirect('/admin/teams/edit/' + id);
-        });
+        return Team.get(id);
+    }).then(function(team) {
+        team.picture = imageUUID;
+        return team.save();
+    }).then(function(result) {
+        req.flash('success', 'Picture uploaded!.');
+        res.redirect('/admin/teams/edit/' + id);
     });
 });
 

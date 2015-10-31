@@ -21,8 +21,6 @@ router.post('/edit/:id', function(req, res) {
     var id = req.params.id;
     var promise = User.get(id);
 
-    console.log(req.body);
-
     promise.then(function(user) {
         user.email          = req.body.email;
         user.fullName       = req.body.fullName;

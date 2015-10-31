@@ -18,16 +18,16 @@ block content
                 td #{team.name}
                 td #{team.members}
                 td.text-center
-                  a.btn.btn-success.btn-xs(href='/admin/locations/new/#{team._id}')
+                  a.btn.btn-success.btn-xs(href='/admin/locations/new/#{team.id}')
                     span.glyphicon.glyphicon-screenshot
                     |  Location
                   |  
-                  a.btn.btn-info.btn-xs(href='/admin/teams/edit/#{team._id}')
+                  a.btn.btn-info.btn-xs(href='/admin/teams/edit/#{team.id}')
                     span.glyphicon.glyphicon-edit
                     |  Edit
                   |  
                   if user.isAdmin
-                    a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{team._id}')
+                    a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{team.id}')
                       span.glyphicon.glyphicon-remove
                       |  Del
                     

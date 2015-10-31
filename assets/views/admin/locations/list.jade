@@ -20,18 +20,18 @@ block content
           if (locations.length)
             each loc in locations
               tr
-                td #{loc._team.name}
+                td #{loc.teamId.name}
                 td #{loc.place}
                 td #{loc.distance} km
                 td
                   span(data-livestamp='#{loc.timestamp}')
                 td.text-center
-                  a.btn.btn-info.btn-xs(href='/admin/locations/edit/#{loc._id}')
+                  a.btn.btn-info.btn-xs(href='/admin/locations/edit/#{loc.id}')
                     span.glyphicon.glyphicon-edit
                     |  Edit
                   |  
                   if user.isAdmin
-                    a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{loc._id}')
+                    a.btn.delete-confirm.btn-danger.btn-xs(href='#', data-id='#{loc.id}')
                       span.glyphicon.glyphicon-remove
                       |  Del
                     
