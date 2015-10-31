@@ -1,35 +1,23 @@
-var mongoose                = require('mongoose'),
-    bcrypt                  = require('bcrypt-nodejs'),
-    Schema                  = mongoose.Schema;
+var config   = require(__dirname+'/../config.js');
+var thinky   = require('thinky')(config);
+var type     = thinky.type;
+var bcrypt   = require('bcrypt-nodejs');
 
-var UserSchema = new Schema({
-    email:          { type: String,  },
-    fullName:       { type: String,  },
-    password:       { type: String,  },
-    isAdmin:        { type: Boolean,    default: false    },
-    isActivated:    { type: Boolean,    default: false    },
-    lastLogin:      { type: Date,       default: Date.now }
+var User = thinky.createModel("User", {
+    id:            type.string(),
+    email:          type.string(),
+    fullName:       type.string(),
+    password:       type.string(),
+    isAdmin:        type.boolean(),
+    lastLogin:      type.date(),
 });
 
-// generating a hash
-UserSchema.methods.generateHash = function(password) {
+User.defineStatic("generateHash", function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+});
 
-// checking if password is valid
-UserSchema.methods.validPassword = function(password) {
+User.define("validPassword", function(password) {
     return bcrypt.compareSync(password, this.password);
-};
+});
 
-UserSchema.statics = {
-    list: function (options, cb) {
-      var criteria = options.criteria || {}
-
-      this.find(criteria)
-        .limit(options.perPage)
-        .skip(options.perPage * options.page)
-        .exec(cb);
-    }
-}
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = User;

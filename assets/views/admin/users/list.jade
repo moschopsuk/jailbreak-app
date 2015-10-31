@@ -25,11 +25,11 @@ block content
                 td
                   span(data-livestamp='#{user.lastLogin}')
                 td.text-center
-                  a.btn.btn-info.btn-xs(href='/admin/users/edit/#{user._id}')
+                  a.btn.btn-info.btn-xs(href='/admin/users/edit/#{user.id}')
                     span.glyphicon.glyphicon-edit
                     |  Edit
                   |  
-                  a.btn.btn-danger.btn-xs.delete-confirm(href='#', data-id='#{user._id}')
+                  a.btn.btn-danger.btn-xs.delete-confirm(href='#', data-id='#{user.id}')
                     span.glyphicon.glyphicon-remove
                     |  Del
                     

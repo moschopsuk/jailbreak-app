@@ -1,56 +1,21 @@
-var mongoose = require('mongoose'),
-    Loc      = require('./locations'),
-    geo      = require('../lib/distance');
-    Schema   = mongoose.Schema;
+var config    = require(__dirname+'/../config.js');
+var thinky    = require('thinky')(config);
+var type      = thinky.type;
 
-var TeamSchema = new Schema({
-    name        : String,
-    members     : String,
-    notes       : String,
-    mobNumber   : Number,
-    email       : String,
-    picture     : String,
+var Team = thinky.createModel("Teams", {
+    id:         type.string(),
+    name:       type.string(),
+    members:    type.string(),
+    notes:      type.string(),
+    mobNumber:  type.string(),
+    email:      type.string(),
+    picture:    type.string(),
 });
 
-TeamSchema.path('name').required(true, 'Team name cannot be blank');
 
-TeamSchema.statics = {
-    list: function (options, cb) {
-      var criteria = options.criteria || {}
-
-      this.find(criteria)
-        .limit(options.perPage)
-        .skip(options.perPage * options.page)
-        .exec(cb);
-    }
-}
-
-TeamSchema.pre('save', function(next) {
-    if (!this.isNew) return next();
-
-    var lat = process.env.LAT;
-    var lon = process.env.LON;
-
-    var loc = new Loc({
-        _team    : this._id,
-        place    : 'Lancaster University, Bailrigg, United Kingdom',
-        lat      : lat,
-        lon      : lon,
-        distance : geo.dist(lat, lon),
-        notes    : 'Automatically Added by the system as a starting point.',
-    });
-
-    loc.save(function (err) {
-        next();
-    });
+Team.pre('save', function(next) {
+    console.log(this);
+    next();
 });
 
-TeamSchema.post('remove', function() {
-    Loc.find({_team: this._id}).remove(function(err) {});
-});
-
-TeamSchema.methods.locations = function (done) {
-    return Loc.find({_team: this._id}, done);
-};
-
-module.exports = mongoose.model('Team', TeamSchema);
+module.exports = Team;

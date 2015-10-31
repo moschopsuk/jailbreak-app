@@ -15,3 +15,80 @@
     /* inline-block space fix */
     margin-right:-4px;
 }
+
+
+.et_marker_info {
+    opacity: 0;
+    background: #fff;
+    bottom: 50px;
+    position: absolute;
+    z-index: 3;
+    display: none;
+}
+.location-description {
+    background-size: cover;
+    width: 240px;
+    text-align: center;
+    -webkit-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    width: 240px;
+}
+.location-title {
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 3px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    //border-bottom: none;
+}
+.location-title h2 {
+    font-size: 22px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #2a2a2a;
+    padding: 19px 35px;
+}
+.listing-info {
+    margin-bottom: -6px;
+    padding: 0 36px;
+}
+.location-rating {
+    background: rgb(66, 173, 237);
+    /* Old browsers */
+
+    background: -moz-linear-gradient(top, rgba(66, 173, 237, 1) 0%, rgba(60, 164, 225, 1) 100%);
+    /* FF3.6+ */
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(66, 173, 237, 1)), color-stop(100%, rgba(60, 164, 225, 1)));
+    /* Chrome,Safari4+ */
+
+    background: -webkit-linear-gradient(top, rgba(66, 173, 237, 1) 0%, rgba(60, 164, 225, 1) 100%);
+    /* Chrome10+,Safari5.1+ */
+
+    background: -o-linear-gradient(top, rgba(66, 173, 237, 1) 0%, rgba(60, 164, 225, 1) 100%);
+    /* Opera 11.10+ */
+
+    background: -ms-linear-gradient(top, rgba(66, 173, 237, 1) 0%, rgba(60, 164, 225, 1) 100%);
+    /* IE10+ */
+
+    background: linear-gradient(to bottom, rgba(66, 173, 237, 1) 0%, rgba(60, 164, 225, 1) 100%);
+    /* W3C */
+
+    min-height: 32px;
+    border: 1px solid #2783ba;
+    -webkit-box-shadow: inset 0 1px 0 #6ac7ff;
+    -moz-box-shadow: inset 0 1px 0 #6ac7ff;
+    box-shadow: inset 0 1px 0 #6ac7ff;
+    position: relative;
+    color: #fff;
+    padding-top: 4px;
+    font-size: 17px;
+}
+.location-rating:before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    border: 10px solid transparent;
+    margin-left: -8px;
+    border-top-color: #3ba2e0;
+}
