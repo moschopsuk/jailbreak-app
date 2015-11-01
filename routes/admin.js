@@ -1,7 +1,7 @@
-var express     = require('express'),
-    router      = express.Router(),
-    Team        = require('../models/team'),
-    Locations   = require('../models/locations');
+var express     = require('express');
+var router      = express.Router();
+var Team        = require('../models/team');
+var Locations   = require('../models/locations');
 var config      = require(__dirname+'/../config.js');
 var thinky      = require('thinky')(config);
 var r           = thinky.r;
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
     .orderBy(r.desc('reduction'))
     .run()
     .map(function(doc) {
-            return {
+        return {
             name:       doc.group.name,
             teamId:     doc.group.id,
             place:      doc.reduction.place,

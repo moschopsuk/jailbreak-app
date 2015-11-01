@@ -40,7 +40,7 @@ html(lang='en')
                 each team in leaderboard
                   tr
                     td= n++
-                    td #{team._id.name}
+                    td #{team.name}
                     td #{team.place}
                     td 
                       span(data-livestamp='#{team.timestamp}')

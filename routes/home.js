@@ -1,26 +1,29 @@
-var express    = require('express'),
-    router     = express.Router(),
-    Team       = require('../models/team'),
-    Locations  = require('../models/locations');
+var express     = require('express'),
+    router      = express.Router(),
+    Team        = require('../models/team'),
+    Locations   = require('../models/locations'),
+    config      = require(__dirname+'/../config.js');
+    thinky      = require('thinky')(config);
+    r           = thinky.r;
 
 router.get('/', function(req, res) {
-    var promise = Locations.aggregate([
-        {
-            $group: {_id: "$_team",
-                distance:   { $max: "$distance" },
-                timestamp:  { $first: "$timestamp" },
-                place:      { $first: "$place" }
-            }
-        },
-        {
-            $sort: { distance : -1 }
+    Locations.getJoin({team: true})
+    .group('teamId')
+    .max('distance')
+    .ungroup()
+    .orderBy(r.desc('reduction'))
+    .run()
+    .map(function(doc) {
+        return {
+            name:       doc.group.name,
+            teamId:     doc.group.id,
+            place:      doc.reduction.place,
+            distance:   doc.reduction.distance,
+            timestamp:  doc.reduction.timestamp
         }
-    ]).exec();
-
-    promise.then(function(locations) {
-        Team.populate(locations, { "path": "_id" }, function(err, leaderboard) {
-            res.render('index', {leaderboard: leaderboard});
-        });
+    })
+    .then(function(leaderboard) {
+        res.render('index', {leaderboard: leaderboard});
     });
 });
 

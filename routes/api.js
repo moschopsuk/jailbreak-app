@@ -1,60 +1,33 @@
 var express     = require('express'),
     router      = express.Router(),
     Team        = require('../models/team'),
-    Locations   = require('../models/locations');
+    Locations   = require('../models/locations'),
+    config      = require(__dirname+'/../config.js'),
+    thinky      = require('thinky')(config),
+    r           = thinky.r;
 
 
 router.get('/leaderboard', function(req, res) {
-
-    Locations.aggregate([
-        {
-            $group:{
-                _id: "$_id",
-                distance: { $max: "$distance"  },
-                team: { $first: "$_team" },
-                place: { $first: "$place" }
-            }
-        },
-        {
-            $sort: { timestamp : -1 }
+    Locations.getJoin({team: true})
+    .group('teamId')
+    .max('distance')
+    .ungroup()
+    .orderBy(r.desc('reduction'))
+    .run()
+    .map(function(doc) {
+        return {
+            name:       doc.group.name,
+            teamId:     doc.group.id,
+            picture:    (doc.group.picture) ? doc.group.picture : '',
+            place:      doc.reduction.place,
+            distance:   doc.reduction.distance,
+            timestamp:  doc.reduction.timestamp,
+            lat:        doc.reduction.lat,
+            lon:        doc.reduction.lon,
         }
-    ], function (err, grouped) {
-        //Team.populate(grouped, { "path": "_id._team" }, function(err, leaderboard) {
-            res.json(grouped);
-        //});
-    });
-});
-
-router.get('/teams', function(req, res) {
-    var promise = Team.find().lean().exec();
-
-    promise.then(function(teams) {
-        res.setHeader('Content-Type', 'application/json');
-        res.json(teams);
-    });
-});
-
-router.get('/recent', function(req, res) {
-    var promise = Locations.aggregate([
-        {
-            $group: {_id: "$_team",
-                distance:   { $max: "$distance" },
-                timestamp:  { $first: "$timestamp" },
-                place:      { $first: "$place" },
-                lat:      { $first: "$lat" },
-                lon:      { $first: "$lon" }
-            }
-        },
-        {
-            $sort: { timestamp : -1 }
-        }
-    ]).exec();
-
-    promise.then(function(locations) {
-        Team.populate(locations, { "path": "_id" }, function(err, leaderboard) {
-            res.setHeader('Content-Type', 'application/json');
-            res.json(leaderboard);
-        });
+    })
+    .then(function(leaderboard) {
+        res.json(leaderboard);
     });
 });
 
