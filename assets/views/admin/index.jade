@@ -18,7 +18,7 @@ block content
             each team in leaderboard
               tr
                 td= n++
-                td #{team._id.name}
+                td #{team.name}
                 td #{team.place}
                 td 
                   span(data-livestamp='#{team.timestamp}')
@@ -30,7 +30,7 @@ block content
           label(for='team-select') Update Teams Location:
           select#team-select.form-control
             each team in leaderboard
-              option(value=team._id._id) #{team._id.name}
+              option(value=team.teamId) #{team.name}
 
 block js
   script.
