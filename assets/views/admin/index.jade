@@ -29,6 +29,7 @@ block content
         .form-group
           label(for='team-select') Update Teams Location:
           select#team-select.form-control
+            option(value=null) Select Team
             each team in leaderboard
               option(value=team.teamId) #{team.name}
 
