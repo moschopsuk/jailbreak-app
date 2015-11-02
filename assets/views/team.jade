@@ -5,7 +5,7 @@ html(lang='en')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title JailBreak App
-    link(href='./css/app.css', rel='stylesheet')
+    link(href='/css/app.css', rel='stylesheet')
   body
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container
@@ -19,42 +19,30 @@ html(lang='en')
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active
-              a(href='#') Home
+              a(href='/') Home
     
     #map-container
     
-    .container
+    .container      
       .row.row-centered
         .col-md-9.col-centered
+          h1 #{team.name}
+          h2 #{team.members}
+          
           .panel.panel-default
             table.table.table-bordered.table-striped
               thead
-                th.col-md-1 #
-                th.col-md-3 Team Name
-                th.col-md-3 Last Location
-                th.col-md-2 Last Contacted
-                th.col-md-2 Dist.
-                th.col-md-1 Track
+                th.col-md-6 Place
+                th.col-md-3 Time
+                th.col-md-3 Dist.
               tbody
-              - var n = 1
-              if (leaderboard.length)
-                each team in leaderboard
+              if (locations.length)
+                each location in locations
                   tr
-                    td= n++
-                    td #{team.name}
-                    td #{team.place}
-                    td 
-                      span(data-livestamp='#{team.timestamp}')
-                    td #{team.distance} km
+                    td #{location.place}
                     td
-                      a.btn.btn-success(href='/team/#{team.teamId}')
-                        span.glyphicon.glyphicon-phone
-                        |  Track
+                      span(data-livestamp='#{location.timestamp}')
+                    td #{location.distance} km
 
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
-    script(src='./js/app.js')
-    
-    script.
-      $( document ).ready(function() {
-          TrackingMap.init();
-      });
+    script(src='/js/app.js')
