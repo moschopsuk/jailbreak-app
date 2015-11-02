@@ -3,6 +3,7 @@ var router      = express.Router();
 var config      = require(__dirname+'/../config.js');
 var thinky      = require('thinky')(config);
 var Errors      = thinky.Errors;
+var r           = thinky.r;
 var Locations   = require('../models/locations');
 var Team        = require('../models/team');
 var geo         = require('../lib/distance');
@@ -103,7 +104,7 @@ router.post('/del/:id', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-    Locations.getJoin({team: true}).run().then(function(locations) {
+    Locations.getJoin({team: true}).orderBy(r.desc('timestamp')).run().then(function(locations) {
         res.render('admin/locations/list', {locations: locations});
     });
 });
