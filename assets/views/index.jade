@@ -26,6 +26,13 @@ html(lang='en')
     .container
       .row.row-centered
         .col-md-9.col-centered
+          .text-center
+            h1
+              |  Total 
+              span#total-distance #{total}
+              |  km travled
+
+        .col-md-9.col-centered
           .panel.panel-default
             table.table.table-bordered.table-striped
               thead
@@ -57,4 +64,10 @@ html(lang='en')
     script.
       $( document ).ready(function() {
           TrackingMap.init();
+          
+          $('#total-distance ').animateNumber({
+              number: #{total},
+              'font-size': '42px',
+              easing: 'easeInQuad'
+          }, 10000 );
       });
