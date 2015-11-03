@@ -2,8 +2,8 @@ var express     = require('express'),
     router      = express.Router(),
     Team        = require('../models/team'),
     Locations   = require('../models/locations'),
-    config      = require(__dirname+'/../config.js');
-    thinky      = require('thinky')(config);
+    config      = require(__dirname+'/../config.js'),
+    thinky      = require('thinky')(config),
     r           = thinky.r;
 
 router.get('/', function(req, res) {
