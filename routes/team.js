@@ -1,9 +1,8 @@
 var express     = require('express');
 var router      = express.Router();
-var config      = require(__dirname+'/../config.js');
-var thinky      = require('thinky')(config);
+var thinky      = require('../lib/thinky');
 var Errors      = thinky.Errors;
-var Team        = require('../models/team');
+var Team        = require('../models/all').Team;
 var easyimg     = require('easyimage');
 var Promise     = require('bluebird');
 var fs          = Promise.promisifyAll(require('fs'));
@@ -17,8 +16,7 @@ router.get('/new', function(req, res) {
 router.post('/new', function(req, res) {
     var team = new Team(req.body);
 
-    team.save().then(function(result) {
-        console.log(result);
+    team.saveAll({locations: true}).then(function(result) {
         req.flash('success', 'New team created.');
         res.redirect('/admin/teams');
     })
@@ -50,7 +48,7 @@ router.post('/edit/:id', function(req, res) {
         team.mobNumber  = req.body.mobNumber;
         team.email      = req.body.email;
         team.notes      = req.body.notes;
-        return team.save();
+        return team.saveAll({locations: true});
     })
     .then(function(result) {
         req.flash('success', 'Team Updated.');

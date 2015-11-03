@@ -1,14 +1,13 @@
 var express     = require('express');
 var router      = express.Router();
-var Team        = require('../models/team');
-var Locations   = require('../models/locations');
-var config      = require(__dirname+'/../config.js');
-var thinky      = require('thinky')(config);
+var thinky      = require('../lib/thinky');
+var Team        = require('../models/all').Team;
+var Locations   = require('../models/all').Locations;
 var r           = thinky.r;
 
 router.get('/', function(req, res) {
     Locations.getJoin({team: true})
-    .group('teamId')
+    .group('team')
     .max('distance')
     .ungroup()
     .orderBy(r.desc('reduction'))

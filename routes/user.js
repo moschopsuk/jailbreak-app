@@ -1,9 +1,8 @@
 var express     = require('express');
 var router      = express.Router();
-var config      = require(__dirname+'/../config.js');
-var thinky      = require('thinky')(config);
+var thinky      = require('../lib/thinky');
 var Errors      = thinky.Errors;
-var User        = require('../models/user');
+var User        = require('../models/all').User;
 
 router.get('/edit/:id', function(req, res) {
     var id = req.params.id;

@@ -1,11 +1,10 @@
 var express     = require('express');
 var router      = express.Router();
-var config      = require(__dirname+'/../config.js');
-var thinky      = require('thinky')(config);
+var thinky      = require('../lib/thinky');
 var Errors      = thinky.Errors;
 var r           = thinky.r;
-var Locations   = require('../models/locations');
-var Team        = require('../models/team');
+var Locations   = require('../models/all').Locations;
+var Team        = require('../models/all').Team;
 var geo         = require('../lib/distance');
 
 router.get('/new/:id', function(req, res) {
@@ -26,7 +25,7 @@ router.post('/new/:id', function(req, res) {
 
     promise.then(function(team) {
         var location = new Locations({
-            teamId      : team,
+            teamid      : team.id,
             place       : req.body.place,
             lat         : req.body.lat,
             lon         : req.body.lon,

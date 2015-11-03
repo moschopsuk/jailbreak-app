@@ -1,5 +1,4 @@
-var config   = require(__dirname+'/../config.js');
-var thinky   = require('thinky')(config);
+var thinky   = require('../lib/thinky');
 var type     = thinky.type;
 var bcrypt   = require('bcrypt-nodejs');
 

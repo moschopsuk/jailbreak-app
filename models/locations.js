@@ -1,7 +1,5 @@
-var config   = require(__dirname+'/../config.js');
-var thinky   = require('thinky')(config);
+var thinky   = require('../lib/thinky');
 var type     = thinky.type;
-var Team     = require('./team');
 
 var Locations = thinky.createModel("Locations", {
     id:         type.string(),
@@ -14,6 +12,7 @@ var Locations = thinky.createModel("Locations", {
     timestamp:  type.date(),
 });
 
-Locations.belongsTo(Team, "team", "team", "id");
-
 module.exports = Locations;
+
+var Team = require(__dirname+'/team.js');
+Locations.belongsTo(Team, "team", "teamid", "id");

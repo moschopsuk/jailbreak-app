@@ -1,6 +1,6 @@
-var config    = require(__dirname+'/../config.js');
-var thinky    = require('thinky')(config);
-var type      = thinky.type;
+var thinky      = require('../lib/thinky');
+var type        = thinky.type;
+var Locations   = require('./locations');
 
 var Team = thinky.createModel("Teams", {
     id:         type.string(),
@@ -12,10 +12,8 @@ var Team = thinky.createModel("Teams", {
     picture:    type.string(),
 });
 
-
-Team.pre('save', function(next) {
-    console.log(this);
-    next();
-});
-
 module.exports = Team;
+
+var Locations = require(__dirname+'/locations.js');
+
+Team.hasMany(Locations, 'locations', 'id', 'teamid');
