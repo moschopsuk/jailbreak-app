@@ -1,3 +1,3 @@
-exports.host = '192.168.99.100';    // RethinkDB host
-exports.port = 32772;          // RethinkDB driver port
-exports.db = 'test';           // Database that we are going to use
+exports.host = process.env.DB_HOST;
+exports.port = process.env.DB_PORT;
+exports.db = process.env.DB_NAME;
