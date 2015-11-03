@@ -23,15 +23,19 @@ html(lang='en')
     
     #map-container
     
-    .container
+    .divider-blue
+      .container
+        .row.row-centered
+          .col-md-9.col-centered
+            .text-center
+              h1
+                |  Total 
+                span#total-distance #{total}
+                |  km travled
+    
+    
+    .container      
       .row.row-centered
-        .col-md-9.col-centered
-          .text-center
-            h1
-              |  Total 
-              span#total-distance #{total}
-              |  km travled
-
         .col-md-9.col-centered
           .panel.panel-default
             table.table.table-bordered.table-striped
