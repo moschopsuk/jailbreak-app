@@ -68,10 +68,10 @@ html(lang='en')
     script.
       $( document ).ready(function() {
           TrackingMap.init();
+          TrackingMap.plotAll();
           
           $('#total-distance ').animateNumber({
               number: #{total},
-              'font-size': '42px',
               easing: 'easeInQuad'
           }, 10000 );
       });

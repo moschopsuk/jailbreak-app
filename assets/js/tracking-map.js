@@ -11,11 +11,9 @@ var TrackingMap = function ($) {
                 latLng : [team.lat, team.lon],
                 events : {
                     mouseover: function( marker ){
-                        console.log(marker);
                         $( '#marker_' + key ).css( { 'display' : 'block', 'opacity' : 0 } ).stop(true,true).animate( { bottom : '15px', opacity : 1 }, 500 );
                     },
                     mouseout: function( marker ){
-                        console.log(marker);
                         $( '#marker_' + key ).stop(true,true).animate( { bottom : '50px', opacity : 0 }, 500, function() {
                             $(this).css( { 'display' : 'none' } );
                         });
@@ -47,6 +45,49 @@ var TrackingMap = function ($) {
       });
     }
 
+    function addPolygon(points) {
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        };
+
+        mapContainer.gmap3({
+            polyline:{
+                values:[{
+                    options:{
+                        path: points
+                    }
+                }],
+                options:{
+                    strokeColor: "#2783ba",
+                    fillColor : "#2783ba",
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                    icons: [{
+                        icon: lineSymbol,
+                        offset: '0%',
+                        repeat: '50px'
+                    }]
+                }
+            }
+        });
+    }
+
+    function plotTrack(team) {
+        var points =[];
+
+        $.ajax({
+            dataType: "json",
+            url: '/api/team/' + team,
+        })
+        .done(function(data) {
+            $.each(data.locations, function(key, location) {
+                points.push([location.lat, location.lon]);
+            });
+            points.reverse();
+            addPolygon(points);
+      });
+    }
+
     tracking.init = function () {
         mapContainer.gmap3({
             map:{
@@ -56,8 +97,14 @@ var TrackingMap = function ($) {
                 }
             }
         });
+    };
 
+    tracking.plotAll = function () {
         plotMarkers();
+    };
+
+    tracking.plot = function (team) {
+        plotTrack(team);
     };
 
     return tracking;

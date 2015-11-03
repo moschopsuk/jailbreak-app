@@ -31,4 +31,21 @@ router.get('/leaderboard', function(req, res) {
     });
 });
 
+router.get('/team/:id', function(req, res) {
+    var teamId = req.params.id;
+    var promse = Team.get(teamId);
+
+    promse.then(function(team) {
+        var locations = Locations
+            .getJoin({team: true})
+            .filter({teamId: team})
+            .orderBy(r.desc('timestamp'));
+
+        return [team, locations];
+    })
+    .spread(function(team, locations) {
+        res.json({team: team, locations: locations});
+    });
+});
+
 module.exports = router;
