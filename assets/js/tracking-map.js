@@ -68,7 +68,8 @@ var TrackingMap = function ($) {
                         repeat: '50px'
                     }]
                 }
-            }
+            },
+            autofit:{}
         });
     }
 
