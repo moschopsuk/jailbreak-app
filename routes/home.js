@@ -37,7 +37,7 @@ router.get('/team/:id', function(req, res) {
     promse.then(function(team) {
         var locations = Locations
             .getJoin({team: true})
-            .filter({teamId: team})
+            .filter({team: team})
             .orderBy(r.desc('timestamp'));
 
         return [team, locations];
