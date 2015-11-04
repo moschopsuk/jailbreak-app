@@ -21,22 +21,22 @@ html(lang='en')
             li.active
               a(href='#') Home
     
-    #map-container
+    .container.no-gutter
+      #map-container
     
     .divider-blue
       .container
-        .row.row-centered
+        .row
           .col-md-9.col-centered
             .text-center
               h1
                 |  Total 
                 span#total-distance #{total}
-                |  km travled
-    
-    
+                |  km traveled
+          
     .container      
       .row.row-centered
-        .col-md-9.col-centered
+        .col-md-6.col-centered
           .panel.panel-default
             table.table.table-bordered.table-striped
               thead
@@ -61,6 +61,11 @@ html(lang='en')
                       a.btn.btn-success(href='/team/#{team.teamId}')
                         span.glyphicon.glyphicon-phone
                         |  Track
+                        
+        .col-md-6.col.centered
+          .embed-responsive.embed-responsive-16by9
+            iframe.embed-responsive-item(src='https://embed.la1tv.co.uk/144/383', allowfullscreen='', webkitallowfullscreen='', mozallowfullscreen='')
+
 
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
     script(src='./js/app.js')
