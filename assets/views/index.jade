@@ -27,16 +27,16 @@ html(lang='en')
     .divider-blue
       .container
         .row
-          .col-md-9.col-centered
+          .col-md-12
             .text-center
               h1
                 |  Total 
                 span#total-distance #{total}
                 |  km traveled
           
-    .container      
+    .container.main-content
       .row.row-centered
-        .col-md-6.col-centered
+        .col-md-6
           .panel.panel-default
             table.table.table-bordered.table-striped
               thead
@@ -62,9 +62,18 @@ html(lang='en')
                         span.glyphicon.glyphicon-phone
                         |  Track
                         
-        .col-md-6.col.centered
+        .col-md-6
           .embed-responsive.embed-responsive-16by9
             iframe.embed-responsive-item(src='https://embed.la1tv.co.uk/144/383', allowfullscreen='', webkitallowfullscreen='', mozallowfullscreen='')
+
+    .divider-blue
+      .container
+        .row
+          .col-md-12
+            .text-center
+              h1 
+                span#total-teams #{teams.length}
+                |  teams competing
 
 
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
@@ -79,4 +88,9 @@ html(lang='en')
               number: #{total},
               easing: 'easeInQuad'
           }, 10000 );
+          
+          $('#total-teams').animateNumber({
+              number: #{teams.length},
+              easing: 'easeInQuad'
+          }, 1000 );
       });

@@ -26,7 +26,11 @@ router.get('/', function(req, res) {
         }
     })
     .then(function(leaderboard) {
-        res.render('index', {leaderboard: leaderboard, total: total});
+        var promise = Team.run();
+
+        return [promise, leaderboard];
+    }).spread(function(teams, leaderboard) {
+        res.render('index', {leaderboard: leaderboard, total: total, teams: teams});
     });
 });
 

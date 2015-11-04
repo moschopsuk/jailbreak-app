@@ -93,8 +93,9 @@ var TrackingMap = function ($) {
         mapContainer.gmap3({
             map:{
                 options:{
+                    scrollwheel: false,
                     center: [54, -2],
-                    zoom: 5
+                    zoom: 4
                 }
             }
         });
