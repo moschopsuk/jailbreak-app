@@ -1,6 +1,6 @@
 var TrackingMap = function ($) {
     var tracking = {},
-        mapContainer = $('#map-container'),
+        mapContainer,
         markers = [];
 
     function addPoint(key, team) {
@@ -89,7 +89,9 @@ var TrackingMap = function ($) {
       });
     }
 
-    tracking.init = function () {
+    tracking.init = function (element) {
+        mapContainer = $(element),
+
         mapContainer.gmap3({
             map:{
                 options:{

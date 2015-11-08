@@ -5,9 +5,17 @@
 @import "jcrop";
 @import "frontend";
 
-body {
-    padding-top: 70px;
+body, html, #map-fullscreen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+#map-fullscreen {
+    position: relative;
+}
+
 
 .alert {
     .glyphicon {

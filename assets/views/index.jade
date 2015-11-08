@@ -81,7 +81,7 @@ html(lang='en')
     
     script.
       $( document ).ready(function() {
-          TrackingMap.init();
+          TrackingMap.init('#map-container');
           TrackingMap.plotAll();
           
           $('#total-distance ').animateNumber({

@@ -16,6 +16,7 @@ router.get('/control', function(req, res) {
         return {
             name:       doc.group.name,
             teamId:     doc.group.id,
+            members:    doc.group.members,
             place:      doc.reduction.place,
             distance:   doc.reduction.distance,
             timestamp:  doc.reduction.timestamp

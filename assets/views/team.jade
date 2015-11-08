@@ -21,7 +21,8 @@ html(lang='en')
             li.active
               a(href='/') Home
     
-    #map-container
+    .container.no-gutter
+      #map-container
     
     .container      
       .row.row-centered
@@ -49,6 +50,6 @@ html(lang='en')
     
     script.
       $( document ).ready(function() {
-          TrackingMap.init();
+          TrackingMap.init('#map-container');
           TrackingMap.plot("#{team.id}");
       });

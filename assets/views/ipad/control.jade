@@ -1,0 +1,46 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title JailBreak App
+    link(href='/css/app.css', rel='stylesheet')
+  body
+    
+    .container
+      .row.row-centered
+        .col-md-10.col-centered
+          .panel.panel-default
+            table.table.table-bordered.table-striped
+              thead
+                th.col-md-1 #
+                th.col-md-3 Team Name
+                th.col-md-3 Last Location
+                th.col-md-2 Last Contacted
+                th.col-md-2 Dist.
+                th.col-md-1 Track
+              tbody
+              - var n = 1
+              if (leaderboard.length)
+                each team in leaderboard
+                  tr
+                    td= n++
+                    td <strong>#{team.name}</strong>
+                      | <p>#{team.members}<p>
+                    td #{team.place}
+                    td 
+                      span(data-livestamp='#{team.timestamp}')
+                    td #{team.distance} km
+                    td
+                      a.btn.btn-success(href='/team/#{team.teamId}')
+                        span.glyphicon.glyphicon-phone
+                        |  Track
+                        
+
+    script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
+    script(src='/js/app.js')
+    
+    script.
+      $( document ).ready(function() {
+      });
