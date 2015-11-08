@@ -109,5 +109,9 @@ var TrackingMap = function ($) {
         plotTrack(team);
     };
 
+    tracking.wipe = function () {
+        mapContainer.gmap('clearMarkers');
+    }
+
     return tracking;
 }(jQuery);
