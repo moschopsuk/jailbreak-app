@@ -6,8 +6,6 @@ var express     = require('express'),
     r           = thinky.r;
 
 router.get('/control', function(req, res) {
-    var total = 0;
-
     Locations.getJoin({team: true})
     .group('team')
     .max('distance')
@@ -15,8 +13,6 @@ router.get('/control', function(req, res) {
     .orderBy(r.desc('reduction'))
     .run()
     .map(function(doc) {
-        total += doc.reduction.distance;
-
         return {
             name:       doc.group.name,
             teamId:     doc.group.id,
@@ -26,10 +22,12 @@ router.get('/control', function(req, res) {
         }
     })
     .then(function(leaderboard) {
-        res.render('board/control', {leaderboard: leaderboard});
+        res.render('ipad/control', {leaderboard: leaderboard});
     });
 });
 
 router.get('/', function(req, res) {
-    res.render('board/index');
+    res.render('ipad/index');
 });
+
+module.exports = router;

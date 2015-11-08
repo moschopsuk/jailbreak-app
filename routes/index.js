@@ -6,7 +6,8 @@ module.exports = function (express, app, passport) {
         team        = require('./team'),
         user        = require('./user'),
         location    = require('./location'),
-        api         = require('./api');
+        api         = require('./api'),
+        ipad       = require('./ipad');
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -24,4 +25,5 @@ module.exports = function (express, app, passport) {
     //Gernic pages
     app.use('/', home);
     app.use('/api', api);
+    app.use('/ipad', ipad);
 };
