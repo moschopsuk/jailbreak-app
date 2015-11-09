@@ -3,11 +3,13 @@ var router      = express.Router();
 var thinky      = require('../lib/thinky');
 var Errors      = thinky.Errors;
 var Team        = require('../models/all').Team;
+var Locations   = require('../models/all').Locations;
 var easyimg     = require('easyimage');
 var Promise     = require('bluebird');
 var fs          = Promise.promisifyAll(require('fs'));
 var uuid        = require('node-uuid');
 var path        = require('path');
+var geo         = require('../lib/distance');
 
 router.get('/new', function(req, res) {
     res.render('admin/teams/new');
@@ -16,7 +18,22 @@ router.get('/new', function(req, res) {
 router.post('/new', function(req, res) {
     var team = new Team(req.body);
 
-    team.saveAll({locations: true}).then(function(result) {
+    team.saveAll({locations: true}).then(function(newTeam) {
+        var lat = process.env.LAT;
+        var lon = process.env.LON;
+
+        var location = new Locations({
+            teamid      : newTeam.id,
+            place       : 'Lancaster University, Bailrigg, United Kingdom',
+            lat         : lat,
+            lon         : lon,
+            distance    : geo.dist(lat, lon),
+            notes       : 'Automatically added by the system.',
+            timestamp   : new Date(),
+        });
+
+        return location.saveAll();
+    }).then(function(saved) {
         req.flash('success', 'New team created.');
         res.redirect('/admin/teams');
     })

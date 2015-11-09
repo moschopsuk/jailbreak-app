@@ -17,3 +17,14 @@ module.exports = Team;
 var Locations = require(__dirname+'/locations.js');
 
 Team.hasMany(Locations, 'locations', 'id', 'teamid');
+
+Team.pre('delete', function(next) {
+    var promise = Locations.getJoin({team: true}).filter({team: this});
+
+    promise.then(function(locations) {
+        locations.forEach(function(location) {
+            location.delete();
+        });
+        next();
+    });
+});
