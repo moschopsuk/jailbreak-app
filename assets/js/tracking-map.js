@@ -58,10 +58,10 @@ var TrackingMap = function ($) {
                     }
                 }],
                 options:{
-                    strokeColor: "#2783ba",
-                    fillColor : "#2783ba",
+                    strokeColor: "#cc0033",
+                    fillColor : "#cc0033",
                     strokeOpacity: 1.0,
-                    strokeWeight: 2,
+                    strokeWeight: 2.5,
                     icons: [{
                         icon: lineSymbol,
                         offset: '0%',
@@ -105,6 +105,15 @@ var TrackingMap = function ($) {
 
     tracking.plotAll = function () {
         plotMarkers();
+
+        mapContainer.gmap3({
+            map:{
+                options:{
+                    center: [54, -2],
+                    zoom: 4
+                }
+            }
+        });
     };
 
     tracking.plot = function (team) {
@@ -112,7 +121,9 @@ var TrackingMap = function ($) {
     };
 
     tracking.wipe = function () {
-        mapContainer.gmap('clearMarkers');
+        mapContainer.gmap3({
+            clear: { }
+        });
     }
 
     return tracking;

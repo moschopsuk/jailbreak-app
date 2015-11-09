@@ -8,14 +8,11 @@ var express             = require('express'),
     session             = require('express-session'),
     flash               = require('express-flash'),
     env                 = require('node-env-file'),
+    socket              = require('socket.io'),
     app                 = express();
 
 //Envronmental
 env(__dirname + '/.env');
-
-//Connect to DB
-//mongoose.Promise = require('bluebird');
-//mongoose.connect(process.env.MONGODB);
 
 //Setup passport service
 require('./lib/passport')(passport);
@@ -62,4 +59,15 @@ var server = app.listen(3000, function () {
     var port = server.address().port;
 
     console.log('Example app listening at http://%s:%s', host, port);
+});
+
+//socket.io stuff
+var io = socket.listen(server);
+
+io.sockets.on('connection', function(socket) {
+
+    socket.on('command', function (command) {
+
+        io.sockets.emit('command', command);
+    });
 });

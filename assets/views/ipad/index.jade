@@ -11,10 +11,25 @@ html(lang='en')
     #map-fullscreen
       
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
+    script(src='/socket.io/socket.io.js')
     script(src='/js/app.js')
     
     script.
       $( document ).ready(function() {
+          var socket = io();
+          
           TrackingMap.init('#map-fullscreen');
           TrackingMap.plotAll();
+          
+          socket.on("command", function(command){
+              console.log(command);
+              
+              TrackingMap.wipe();
+              
+              if(command == 'show-all') {
+                  TrackingMap.plotAll();
+              } else {
+                  TrackingMap.plot(command);
+              }
+          });      
       });

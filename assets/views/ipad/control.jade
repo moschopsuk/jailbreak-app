@@ -7,6 +7,12 @@ html(lang='en')
     title JailBreak App
     link(href='/css/app.css', rel='stylesheet')
   body
+  
+    .container.main-content
+      .row.text-center
+        a.show-all-command.btn.btn-info.btn-lg(href='#')
+          span.glyphicon.glyphicon-phone
+          |  Show all
     
     .container
       .row.row-centered
@@ -33,14 +39,26 @@ html(lang='en')
                       span(data-livestamp='#{team.timestamp}')
                     td #{team.distance} km
                     td
-                      a.btn.btn-success(href='/team/#{team.teamId}')
+                      a.show-team-command.btn.btn-success(data-id='#{team.teamId}', href='#')
                         span.glyphicon.glyphicon-phone
                         |  Track
                         
 
     script(src='http://maps.googleapis.com/maps/api/js?key=AIzaSyCOSGdGETZCnG79ZoWuq1JNi3aurSHMU0A')
+    script(src='/socket.io/socket.io.js')
     script(src='/js/app.js')
     
     script.
       $( document ).ready(function() {
+          var socket = io();
+          
+          $("a.show-all-command").click(function(event) {
+              event.preventDefault();
+              socket.emit("command", "show-all");
+          });
+          
+          $("a.show-team-command").click(function(event) {
+              event.preventDefault();
+              socket.emit("command", $(this).data("id"));
+          });
       });
