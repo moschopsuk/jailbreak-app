@@ -9,13 +9,20 @@ html(lang='en')
   body
     .container.no-gutter
       #map-container
-    
+      
+    .container.main-content
+      .row.row-centered
+        .col-md-9.col-centered
+            h1 #{team.name}
+            h2 #{team.members}
+
+            a.btn.btn-success(href='/')
+              span.glyphicon.glyphicon-chevron-left
+              |  Back
+      
     .container      
       .row.row-centered
         .col-md-9.col-centered
-          h1 #{team.name}
-          h2 #{team.members}
-          
           .panel.panel-default
             table.table.table-bordered.table-striped
               thead
