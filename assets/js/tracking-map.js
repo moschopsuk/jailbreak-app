@@ -45,6 +45,29 @@ var TrackingMap = function ($) {
       });
     }
 
+    function highlightMarker(id) {
+        $.ajax({
+            dataType: "json",
+            url: '/api/leaderboard',
+        })
+        .done(function(teams) {
+            $.each(teams, function(key, team) {
+                if (id === team.teamId) {
+                    mapContainer.gmap3({
+                        map:{
+                            options:{
+                                scrollwheel: false,
+                                center: [team.lat, team.lon],
+                                zoom: 14
+                            }
+                        }
+                    });
+                    addPoint(key, team);
+                }
+            });
+        });
+    }
+
     function addPolygon(points) {
         var lineSymbol = {
             path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
@@ -89,31 +112,26 @@ var TrackingMap = function ($) {
       });
     }
 
-    tracking.init = function (element) {
-        mapContainer = $(element),
-
+    function resetMap() {
         mapContainer.gmap3({
             map:{
                 options:{
                     scrollwheel: false,
                     center: [54, -2],
-                    zoom: 4
+                    zoom: 5
                 }
             }
         });
+    }
+
+    tracking.init = function (element) {
+        mapContainer = $(element),
+        resetMap();
     };
 
     tracking.plotAll = function () {
         plotMarkers();
-
-        mapContainer.gmap3({
-            map:{
-                options:{
-                    center: [54, -2],
-                    zoom: 4
-                }
-            }
-        });
+        resetMap();
     };
 
     tracking.plot = function (team) {
@@ -124,6 +142,10 @@ var TrackingMap = function ($) {
         mapContainer.gmap3({
             clear: { }
         });
+    }
+
+    tracking.highlight = function(id) {
+        highlightMarker(id);
     }
 
     return tracking;

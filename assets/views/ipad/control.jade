@@ -10,7 +10,7 @@ html(lang='en')
   
     .container.main-content
       .row.text-center
-        a.show-all-command.btn.btn-info.btn-lg(href='#')
+        a.show-all-command.btn.btn-danger.btn-lg(href='#')
           span.glyphicon.glyphicon-phone
           |  Show all
     
@@ -21,11 +21,11 @@ html(lang='en')
             table.table.table-bordered.table-striped
               thead
                 th.col-md-1 #
-                th.col-md-3 Team Name
+                th.col-md-2 Team Name
                 th.col-md-3 Last Location
                 th.col-md-2 Last Contacted
-                th.col-md-2 Dist.
-                th.col-md-1 Track
+                th.col-md-1 Dist.
+                th.col-md-3 Track
               tbody
               - var n = 1
               if (leaderboard.length)
@@ -39,6 +39,10 @@ html(lang='en')
                       span(data-livestamp='#{team.timestamp}')
                     td #{team.distance} km
                     td
+                      a.highlight-team-command.btn.btn-info(data-id='#{team.teamId}', href='#')
+                        span.glyphicon.glyphicon-phone
+                        |  Zoom
+                      |  
                       a.show-team-command.btn.btn-success(data-id='#{team.teamId}', href='#')
                         span.glyphicon.glyphicon-phone
                         |  Track
@@ -54,11 +58,16 @@ html(lang='en')
           
           $("a.show-all-command").click(function(event) {
               event.preventDefault();
-              socket.emit("command", "show-all");
+              socket.emit("reset", "");
           });
           
           $("a.show-team-command").click(function(event) {
               event.preventDefault();
-              socket.emit("command", $(this).data("id"));
+              socket.emit("track", $(this).data("id"));
+          });
+          
+          $("a.highlight-team-command").click(function(event) {
+              event.preventDefault();
+              socket.emit("highlight", $(this).data("id"));
           });
       });

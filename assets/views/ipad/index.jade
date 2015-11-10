@@ -21,15 +21,17 @@ html(lang='en')
           TrackingMap.init('#map-fullscreen');
           TrackingMap.plotAll();
           
-          socket.on("command", function(command){
-              console.log(command);
-              
+          socket.on("reset", function(command){
               TrackingMap.wipe();
-              
-              if(command == 'show-all') {
-                  TrackingMap.plotAll();
-              } else {
-                  TrackingMap.plot(command);
-              }
-          });      
+              TrackingMap.plotAll();
+          });
+          
+          socket.on("track", function(id){
+              TrackingMap.plot(id);
+          });
+          
+          socket.on("highlight", function(id){
+              TrackingMap.wipe();
+              TrackingMap.highlight(id);      
+          });
       });

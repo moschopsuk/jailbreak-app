@@ -66,8 +66,16 @@ var io = socket.listen(server);
 
 io.sockets.on('connection', function(socket) {
 
-    socket.on('command', function (command) {
-
-        io.sockets.emit('command', command);
+    socket.on('reset', function (command) {
+        io.sockets.emit('reset', command);
     });
+
+    socket.on('track', function (command) {
+        io.sockets.emit('track', command);
+    });
+
+    socket.on('highlight', function (command) {
+        io.sockets.emit('highlight', command);
+    });
+    
 });
