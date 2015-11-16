@@ -13,24 +13,26 @@ This is currently a WIP repo for a jailbreak application for tracking the progre
 - **REthinkDB**
 - **Imagemagick**
 
-**Aditional Prerequisites**
-A nodejs plugin may not install correctly if libkrb5 can't be found on the system
-
+##Getting Started
+I recommend install these nodeJS modules globally
 ```bash
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo "deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-
-apt-get update
-
-apt-get install libkrb5-dev mongodb-org
+npm install -g bower
+npm install -g gulp
+npm install -g pm2
 ```
 
-##Getting Started
-
+When ready to build these commands can be ran
 ```bash
 git clone git@github.com:moschopsuk/jailbreak-app.git
 cd jailbreak-app
 npm install
+bower install
+gulp
+```
+
+Please look at the .env example and change the values to fit your needs, you will need to reanme the file to .env to get the application started.
+```bash
+mv .env.example .env
 ```
 
 ##Development
@@ -43,4 +45,4 @@ After installing all of the dependencies the following command will run the core
 
 A development server can be started by running the command. Todo find some way of reloading the browser when file chnages are also made.
 
-`npm start`
+`pm2 start app.js`

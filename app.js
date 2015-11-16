@@ -4,7 +4,6 @@ var express             = require('express'),
     cookieParser        = require('cookie-parser'),
     bodyParser          = require('body-parser'),
     passport            = require('passport'),
-    mongoose            = require('mongoose'),
     session             = require('express-session'),
     flash               = require('express-flash'),
     env                 = require('node-env-file'),
@@ -77,5 +76,5 @@ io.sockets.on('connection', function(socket) {
     socket.on('highlight', function (command) {
         io.sockets.emit('highlight', command);
     });
-    
+
 });

@@ -26,7 +26,6 @@
     "express-session": "^1.11.3",
     "geolib": "^2.0.18",
     "jade": "^1.11.0",
-    "mongoose": "^4.1.10",
     "morgan": "^1.6.1",
     "node-env-file": "^0.1.7",
     "node-uuid": "^1.4.3",
